@@ -184,5 +184,4 @@ public class Companion
         currentHp = maxHp;
         currentMp = maxMp;
     }
-
 }
