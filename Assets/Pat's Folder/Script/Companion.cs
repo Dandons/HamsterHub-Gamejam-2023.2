@@ -1,16 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class Companion : MonoBehaviour
+public class Companion
 {
+    //Base Stat
+    private float baseHp;
+    private float baseMp;
+    private float baseAtk;
+    private float baseDef;
+    private float baseHpRegen;
+    private float baseMpRegen;
+
     //Property for Companion's Hp
+    private float hpRegen;
     private int hpLv;
     private float hp;
     private float maxHp;
     public float currentHp
     {
-        get { return hpLv; } 
+        get { return hp; } 
         set
         {
             hp = value;
@@ -30,22 +40,28 @@ public class Companion : MonoBehaviour
         set
         {
             hpLv = value;
+            float amplifier = 1 + (hpLv * 2);
             switch (rarity)
             {
                 case Rarity.Common:
-                    maxHp = 100 * hpLv; break;
+                    hpRegen = baseHpRegen * amplifier;
+                    maxHp = baseHp * amplifier; break;
                 case Rarity.Uncommon:
-                    maxHp = 150 * hpLv; break;
+                    hpRegen = baseHpRegen * amplifier;
+                    maxHp = baseHp * amplifier; break;
                 case Rarity.Rare:
-                    maxHp = 200 * hpLv; break;
+                    hpRegen = baseHpRegen * amplifier;
+                    maxHp = baseHp * amplifier; break;
                 case Rarity.SuperRare:
-                    maxHp = 250 * hpLv; break;
+                    hpRegen = baseHpRegen * amplifier;
+                    maxHp = baseHp * amplifier; break;
             }
         }
     }
 
     //Property for Companion's Mp
     private float maxMp;
+    private float mpRegen;
     private int mpLv;
     private float mp;
     public float currentMp
@@ -70,16 +86,21 @@ public class Companion : MonoBehaviour
         set
         {
             mpLv = value;
+            float amplifier = 1 + (mpLv * 2);
             switch (rarity)
             {
                 case Rarity.Common:
-                    maxMp = 100 * mpLv; break;
+                    mpRegen = baseMpRegen * amplifier;
+                    maxMp = baseMp * amplifier; break;
                 case Rarity.Uncommon:
-                    maxMp = 150 * mpLv; break;
+                    mpRegen = baseMpRegen * amplifier;
+                    maxMp = baseMp * amplifier; break;
                 case Rarity.Rare:
-                    maxMp = 200 * mpLv; break;
+                    mpRegen = baseMpRegen * amplifier;
+                    maxMp = baseMp * amplifier; break;
                 case Rarity.SuperRare:
-                    maxMp = 250 * mpLv; break;
+                    mpRegen = baseMpRegen * amplifier;
+                    maxMp = baseMp * amplifier; break;
             }
         }
     }
@@ -93,16 +114,17 @@ public class Companion : MonoBehaviour
         set
         {
             atkLv = value;
+            float amplifier = 1 + (atkLv * 2);
             switch(rarity)
             {
                 case Rarity.Common:
-                    atk = 100 * atkLv; break;
+                    atk = baseAtk * amplifier; break;
                 case Rarity.Uncommon:
-                    atk = 110 * atkLv; break;
+                    atk = baseAtk * amplifier; break;
                 case Rarity.Rare:
-                    atk = 120 *atkLv; break;
+                    atk = baseAtk * amplifier; break;
                 case Rarity.SuperRare:
-                    atk = 130 *atkLv; break;
+                    atk = baseAtk * amplifier; break;
             }
         }
     }
@@ -116,16 +138,17 @@ public class Companion : MonoBehaviour
         set
         {
             defLv = value;
+            float amplifier = 1+(defLv * 2);
             switch(rarity)
             {
                 case Rarity.Common:
-                    def = 10 * defLv; break;
+                    def = baseDef * amplifier; break;
                 case Rarity.Uncommon:
-                    def = 15 * defLv; break;
+                    def = baseDef * amplifier; break;
                 case Rarity.Rare:
-                    def = 20 * defLv; break;
+                    def = baseDef * amplifier; break;
                 case Rarity.SuperRare:
-                    def = 25 * defLv; break;
+                    def = baseDef * amplifier; break;
             }
         }
     }
@@ -146,12 +169,18 @@ public class Companion : MonoBehaviour
         SuperRare
     }
     public Rarity rarity = new Rarity();
-
-
-    private void Start()
+    public Companion(float baseatk, float basehp, float basemp, float basedef, float basehpRegen, float basempRegen)
     {
+        baseAtk = baseatk;
+        baseHp = basehp;
+        baseMp = basemp;
+        baseDef = basedef;
+        baseHpRegen = basehpRegen;
+        baseMpRegen = basempRegen;
         HpLv = 1;
         MpLv = 1;
+        AtkLv = 1;
+        DefLv = 1;
         currentHp = maxHp;
         currentMp = maxMp;
     }
