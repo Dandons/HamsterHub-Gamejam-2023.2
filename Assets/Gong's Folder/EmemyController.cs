@@ -9,14 +9,16 @@ public class EmemyController : MonoBehaviour
     void Start()
     {
         myenemy = new Enemy(transform);
+        myenemy.rb = this.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        myenemy.Update();
+        myenemy.FixedUpdate();
     }
-
+    
+   
   
 
 }

@@ -6,12 +6,13 @@ public class Enemy
 {
     protected int enemyHeathPoint;
     protected int attackDamage;
-    protected int speed = 1;
+    protected float speed = 100f;
     protected int defend;
     protected float detectRange = 100f;
     protected float attackRange = 1f;
     protected Transform target;
     protected Transform transform;
+    public Rigidbody2D rb;
 
     public Enemy(Transform enemyTransform)
     {
@@ -19,10 +20,10 @@ public class Enemy
     }
 
 
-    public virtual void Update()
+    public virtual void FixedUpdate()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectRange);
-        target = null;
+
 
         foreach (Collider2D collider in colliders)
         {
@@ -43,8 +44,9 @@ public class Enemy
                     else
                     {
                         // Move towards the targe
-                        Vector2 direction = (target.position - transform.position).normalized;
-                        Move(direction);
+                        Vector2 direction = (target.position - transform.position);
+                        rb.velocity = direction * speed * Time.deltaTime;
+
                     }
                 }
             }
@@ -55,13 +57,13 @@ public class Enemy
 
     protected void Move(Vector2 direction)
     {
-        Vector3 newPosition = transform.position + new Vector3(direction.x, direction.y, 0) * speed * Time.deltaTime;
+        Vector3 newPosition = new Vector3(direction.x, direction.y, 0) * speed * Time.deltaTime;
         transform.position = newPosition;
     }
 
     private void Attack()
     {
-
+        Debug.Log("Attacking" + target.name);
     }
 
     private void TakeDamage()
