@@ -102,7 +102,7 @@ public class CompanionSubclass : MonoBehaviour
             }
             
         }
-        if(normalAttackCount >= normalPerSkill && Time.time > nextAttack && entity.Length>0)
+        if(normalAttackCount >= normalPerSkill && Time.time > nextAttack && entity.Length>0 && skill.skill.skillName=="NoSkill")
         {
             float[] enemyDistance = new float[entity.Length];
             for (int i = 0; i < entity.Length; i++)
