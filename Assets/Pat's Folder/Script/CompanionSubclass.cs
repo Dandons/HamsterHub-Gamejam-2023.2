@@ -16,11 +16,13 @@ public class CompanionSubclass : MonoBehaviour
     [SerializeField] float baseDef;
     [SerializeField] float baseHpRegen;
     [SerializeField] float baseMpRegen;
-
+    [SerializeField] int normalPerSkill;
     [SerializeField] float atkRange;
+    [SerializeField] float cdPerAttack;
     public int skillLv;
 
     private int normalAttackCount = 0;
+    private float nextAttack = 0.1f;
 
     public Companion companion;
     public Companion.Rarity rarity;
@@ -33,7 +35,8 @@ public class CompanionSubclass : MonoBehaviour
     }
     public void TakeDamage(float damage)
     {
-        companion.currentHp -= damage;
+        if(companion.def > damage) { companion.currentHp -= damage * 0.1f; }
+        else { companion.currentHp -= damage - companion.def; }
     }
     private float GetDistance(Vector3 enemyPosition)
     {
@@ -63,49 +66,83 @@ public class CompanionSubclass : MonoBehaviour
         }
         return enemy.ToArray();
     }
-    public void Attack(string attackType)
+    public void Attack()
     {
         Collider2D[] entity = Physics2D.OverlapCircleAll(this.transform.position, atkRange);
         entity = GetEnemies(entity);
-        if (normalAttackCount < 2)
+        if (normalAttackCount < normalPerSkill)
         {
-            if (attackType == Companion.AttacKType.Melee.ToString())
+            if (companion.attackType == Companion.AttacKType.Melee && Time.time > nextAttack && entity.Length > 0)
             {
                 for (int i = 0; i < entity.Length; i++)
                 {
                     //Get Component and call TakeDamage in ENEMY
                 }
                 normalAttackCount += 1;
+                nextAttack = Time.time + cdPerAttack;
             }
-            if (attackType == Companion.AttacKType.Range.ToString())
+            if (companion.attackType == Companion.AttacKType.Range && Time.time > nextAttack)
             {
                 float[] enemyDistance = new float[entity.Length];
                 for (int i = 0; i < entity.Length; i++)
                 {
                     enemyDistance = enemyDistance.Append(GetDistance(entity[i].transform.position)).ToArray();
                 }
-                Collider2D enemyToHit = entity[GetNearestDistance(enemyDistance)];
-                //Get Component and call TakeDamage in ENEMY
-                normalAttackCount += 1;
+                if(enemyDistance.Length > 0) 
+                {
+                    Collider2D enemyToHit = entity[GetNearestDistance(enemyDistance)];
+                    //Get Component and call TakeDamage in ENEMY
+                    normalAttackCount += 1;
+                }
+                nextAttack = Time.time + cdPerAttack;
             }
+            
         }
-        if(normalAttackCount >= 2)
+        if(normalAttackCount >= normalPerSkill && Time.time > nextAttack && entity.Length>0)
         {
-            SpecialAttack();
+            float[] enemyDistance = new float[entity.Length];
+            for (int i = 0; i < entity.Length; i++)
+            {
+                enemyDistance = enemyDistance.Append(GetDistance(entity[i].transform.position)).ToArray();
+            }
+            if (enemyDistance.Length > 0)
+            {
+                Collider2D enemyToHit = entity[GetNearestDistance(enemyDistance)];
+                SpecialAttack(enemyToHit);
+                nextAttack = Time.time + cdPerAttack;
+                normalAttackCount = 0;
+            }  
         }
     }
-    private void SpecialAttack()
+    private void SpecialAttack(Collider2D enemy)
     {
         float usedMp = skill.skill.baseMpUsage * skill.skill.mpUsageAmplfier;
         if (usedMp < companion.currentMp) 
         {
             companion.currentMp -= usedMp;
-            skill.skill.UseSkill();
+            skill.skill.UseSkill(this.transform.position,enemy,companion.atk,atkRange);
         }
         
     }//skill
+
+    private void Regeneration()
+    {
+        StartCoroutine(Regen());
+    }
+    IEnumerator Regen()
+    {
+        yield return new WaitForSeconds(1);
+        companion.currentHp += companion.hpRegen;
+        companion.currentMp += companion.mpRegen;
+    }
     public void Update()
     {
-        skill.skill.UseSkill();
+        Attack();
+        Regeneration();
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(this.transform.position, atkRange);
     }
 }

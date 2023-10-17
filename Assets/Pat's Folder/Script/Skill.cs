@@ -9,8 +9,7 @@ public class Skill : MonoBehaviour
     public virtual int LvSkill {  get; set; }
     public virtual float damageAmplfier { get; }
     public virtual float mpUsageAmplfier { get; }
-    public virtual void UseSkill()
-    {
 
-    }
+    //rn jst in case
+    public virtual void UseSkill(Vector3 position, Collider2D targetEnemy , float damage,float hitRange) { }
 }

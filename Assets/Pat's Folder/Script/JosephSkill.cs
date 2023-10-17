@@ -9,10 +9,23 @@ public class JosephSkill : Skill
     public override float baseMpUsage => 60;
     public override int LvSkill { get => lvSkill; set => lvSkill = value; }
     public override float mpUsageAmplfier => LvSkill + 1;
-    public override float damageAmplfier => 1 + (LvSkill * 2);
-    public override void UseSkill()
+    public override float damageAmplfier => (150 + (LvSkill*5))*0.01f;
+
+    public override void UseSkill(Vector3 position,Collider2D enemy,float damage,float castDistance)
     {
-        //base.UseSkill();
-        Debug.Log("JOSEPHHHHHHHH");
+        float damageOut = damage * damageAmplfier;
+        float coneAngle = 30f;
+        Vector2 direction = enemy.transform.position - position;
+        Quaternion coneRotation = Quaternion.AngleAxis(-coneAngle / 2, Vector3.forward);
+        for (int i = 0; i < 360; i += 10) // You can adjust the increment for smoother or coarser results.
+        {
+            Vector2 rotatedDirection = coneRotation * direction;
+            RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, rotatedDirection, castDistance);
+            for (int j = 0; j < hit.Length; j++)
+            {
+                //Take Damage
+            }
+            coneRotation *= Quaternion.AngleAxis(10, Vector3.forward); // Rotate the direction for the next ray.
+        }
     }
 }

@@ -14,7 +14,7 @@ public class Companion
     private float baseMpRegen;
 
     //Property for Companion's Hp
-    private float hpRegen;
+    public float hpRegen;
     private int hpLv;
     private float hp;
     private float maxHp;
@@ -61,7 +61,7 @@ public class Companion
 
     //Property for Companion's Mp
     private float maxMp;
-    private float mpRegen;
+    public float mpRegen;
     private int mpLv;
     private float mp;
     public float currentMp
