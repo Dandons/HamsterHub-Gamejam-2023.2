@@ -66,9 +66,9 @@ public class Enemy
         Debug.Log("Attacking" + target.name);
     }
 
-    private void TakeDamage()
+    protected void TakeDamage()
     {
-        
+
     }
    
 }
