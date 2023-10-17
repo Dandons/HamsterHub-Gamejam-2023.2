@@ -24,6 +24,10 @@ public class CompanionSubclass : MonoBehaviour
     private int normalAttackCount = 0;
     private float nextAttack = 0.1f;
 
+    public string name;
+    public string description;
+    public Sprite icon;
+
     public Companion companion;
     public Companion.Rarity rarity;
     public Companion.AttacKType attackType;
@@ -122,7 +126,6 @@ public class CompanionSubclass : MonoBehaviour
             companion.currentMp -= usedMp;
             skill.skill.UseSkill(this.transform.position,enemy,companion.atk,atkRange);
         }
-        
     }//skill
 
     private void Regeneration()
