@@ -13,10 +13,12 @@ public class Enemy
     protected Transform target;
     protected Transform transform;
     public Rigidbody2D rb;
+    
 
     public Enemy(Transform enemyTransform)
     {
         transform = enemyTransform;
+        
     }
 
 
@@ -59,6 +61,7 @@ public class Enemy
     {
         Vector3 newPosition = new Vector3(direction.x, direction.y, 0) * speed * Time.deltaTime;
         transform.position = newPosition;
+      
     }
 
     private void Attack()
@@ -71,5 +74,25 @@ public class Enemy
 
     }
    
+}
+
+public class EnemyMelee : Enemy
+{
+    public EnemyMelee(Transform enemyTransform) : base(enemyTransform)
+    {
+        enemyHeathPoint = 5;
+        attackDamage = 10;
+        speed = 2;
+        defend = 5;
+
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
 }
 
