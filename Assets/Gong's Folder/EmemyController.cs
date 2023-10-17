@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class EmemyController : MonoBehaviour
 {
-    public Enemy myenemy;
+
     public float spawnInterval;
     public Transform spawnArea;
     public int numberOfEnemiesToSpawn;
-    public GameObject enemyPrefab;
+    public GameObject meleeEnemyPrefab;
+    public GameObject rangeEnemyPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,20 +25,25 @@ public class EmemyController : MonoBehaviour
     {
         for (int i = 0; i < numberOfEnemiesToSpawn; i++)
         {
-            Vector3 randomSpawnPoint = new Vector3(
+            Vector2 randomSpawnPoint = new Vector2(
                 Random.Range(spawnArea.position.x - spawnArea.localScale.x / 2, spawnArea.position.x + spawnArea.localScale.x / 2),
-                spawnArea.position.y,
-                Random.Range(spawnArea.position.z - spawnArea.localScale.z / 2, spawnArea.position.z + spawnArea.localScale.z / 2));
+                Random.Range(spawnArea.position.y - spawnArea.localScale.y / 2, spawnArea.position.y + spawnArea.localScale.y / 2));
 
-
-            Instantiate(enemyPrefab, randomSpawnPoint, Quaternion.identity);
-            myenemy = new Enemy(transform);
-            myenemy.rb = this.GetComponent<Rigidbody2D>();
-            myenemy.FixedUpdate();
+            int enemynum = Random.Range(0, 1);
+            if (enemynum == 0)
+            {
+                Instantiate(meleeEnemyPrefab, randomSpawnPoint, Quaternion.identity) ;
+            }
+            if (enemynum == 1)
+            {
+                Instantiate(rangeEnemyPrefab, randomSpawnPoint, Quaternion.identity);
+            }
             yield return new WaitForSeconds(spawnInterval);
         }
-       
     }
 
-
+    private void OnTriggerEnter(Collider other)
+    {
+        
+    }
 }
