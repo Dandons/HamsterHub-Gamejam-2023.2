@@ -6,14 +6,14 @@ public class Enemy
 {
     protected float enemyHeathPoint;
     protected float attackDamage;
-    protected float speed;
-    protected float defend;
-    protected float detectRange;
-    protected float attackRange;
     protected float allDamge;
-
-    protected Transform target;
+    protected float speed = 10f;
+    protected float defend;
+    protected float detectRange = 100f;
+    protected float attackRange; 
+    protected Vector2 direction; 
     protected Transform transform;
+    protected Transform target;
     public Rigidbody2D rb;
     
 
@@ -44,11 +44,12 @@ public class Enemy
                     if (distanceToTarget <= attackRange)
                     {
                         Attack();
+                        rb.velocity =  Vector2.zero * speed * Time.deltaTime;
                     }
                     else
                     {
                         // Move towards the targe
-                        Vector2 direction = (target.position - transform.position);
+                        direction = (target.position - transform.position);
                         rb.velocity = direction * speed * Time.deltaTime;
 
                     }
@@ -64,7 +65,6 @@ public class Enemy
         
         Vector3 newPosition = new Vector3(direction.x, direction.y, 0) * speed * Time.deltaTime;
         transform.position = newPosition;
-      
     }
 
     private void Attack()
@@ -100,6 +100,9 @@ public class EnemyMelee : Enemy
     public EnemyMelee(Transform enemyTransform) : base(enemyTransform)
     {
         attackRange = 1f;
+        enemyHeathPoint = 1 + 2 * (DayCount.days - 1);
+        attackDamage = 1 + 1 * (DayCount.days - 1);
+        defend = 1 + 2 * (DayCount.days - 1);
     }
 
     // Start is called before the first frame update
@@ -111,9 +114,6 @@ public class EnemyMelee : Enemy
     // Update is called once per
     private void Update()
     {
-        enemyHeathPoint = 1 + 2 * (DayCount.days - 1);
-        attackDamage = 1 + 1 * (DayCount.days - 1);
-        defend = 1 + 2 * (DayCount.days - 1);
     }
 
 }
@@ -123,7 +123,9 @@ public class EnemyRange : Enemy
     public EnemyRange(Transform enemyTransform) : base(enemyTransform)
     {
         attackRange = 7f;
-
+        enemyHeathPoint = 1 + 1 * (DayCount.days - 1);
+        attackDamage = 1 + 2 * (DayCount.days - 1);
+        defend = 1 + 1 * (DayCount.days - 1);
     }
 
     // Start is called before the first frame update
@@ -135,9 +137,6 @@ public class EnemyRange : Enemy
     // Update is called once per
     private void Update()
     {
-        enemyHeathPoint = 1 + 1 * (DayCount.days - 1);
-        attackDamage = 1 + 2 * (DayCount.days - 1);
-        defend = 1 + 1 * (DayCount.days - 1);
     }
 
 }

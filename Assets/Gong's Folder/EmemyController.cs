@@ -29,12 +29,12 @@ public class EmemyController : MonoBehaviour
                 Random.Range(spawnArea.position.x - spawnArea.localScale.x / 2, spawnArea.position.x + spawnArea.localScale.x / 2),
                 Random.Range(spawnArea.position.y - spawnArea.localScale.y / 2, spawnArea.position.y + spawnArea.localScale.y / 2));
 
-            int enemynum = Random.Range(0, 1);
-            if (enemynum == 0)
+            int enemynum = Random.Range(0, 100);
+            if (enemynum > 50)
             {
                 Instantiate(meleeEnemyPrefab, randomSpawnPoint, Quaternion.identity) ;
             }
-            if (enemynum == 1)
+            if (enemynum < 49)
             {
                 Instantiate(rangeEnemyPrefab, randomSpawnPoint, Quaternion.identity);
             }
