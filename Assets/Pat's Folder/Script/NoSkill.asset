@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: NoSkill
   m_EditorClassIdentifier: 
   skill: {fileID: 0}
-  skillName: 0
+  skillName: 1

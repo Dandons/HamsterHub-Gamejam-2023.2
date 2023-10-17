@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5989885107367731949}
   m_Layer: 0
   m_Name: Joseph
-  m_TagString: Untagged
+  m_TagString: Companion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56,6 +56,9 @@ MonoBehaviour:
   atkRange: 6.5
   cdPerAttack: 5
   skillLv: 1
+  name: Joseph
+  description: The Grand Arch mage
+  icon: {fileID: 21300000, guid: c6c15530fba48ae44991e79b5a3b0abd, type: 3}
   rarity: 3
   attackType: 0
 --- !u!212 &5989885107367731949
