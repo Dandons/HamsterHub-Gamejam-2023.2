@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Skill : MonoBehaviour
 {
+    public virtual string skillName {  get; set; }
     public virtual float baseMpUsage { get; }
     public virtual float baseDamage { get; }
     public virtual int LvSkill {  get; set; }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class JosephSkill : Skill
 {
+    public override string skillName { get => "Joseph..Beammmmm"; }
     public int lvSkill;
     public override float baseDamage => 150;
     public override float baseMpUsage => 60;

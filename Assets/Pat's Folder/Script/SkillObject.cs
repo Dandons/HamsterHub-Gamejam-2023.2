@@ -11,11 +11,11 @@ public class SkillObject : ScriptableObject
     {
         {"JosephSkill",0}
     };
-    public enum SkillName
+    public enum SkillUser
     {
         JosephSkill
     }
-    public SkillName skillName = new SkillName();
+    public SkillUser skillName = new SkillUser();
     private void Awake()
     {
         allSkill = new Skill[5];

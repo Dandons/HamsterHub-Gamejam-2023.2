@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class noSkill : MonoBehaviour
+public class noSkill : Skill
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public override string skillName { get => "No Skill"; }
+    public override int LvSkill => 0;
+    public override float baseMpUsage => 0;
+    public override void UseSkill(Vector3 position, Collider2D enemy, float damage, float castDistance) { }
 }
