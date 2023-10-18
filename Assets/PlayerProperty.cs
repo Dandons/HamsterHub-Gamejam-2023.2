@@ -12,6 +12,7 @@ public class PlayerProperty
     private float baseDef;
     private float baseHpRegen;
     private float baseMpRegen;
+    public static int Coin;
 
     //Property for Companion's Hp
     public float hpRegen;
