@@ -19,7 +19,8 @@ public class CompanionSubclass : MonoBehaviour
     [SerializeField] int normalPerSkill;
     [SerializeField] float atkRange;
     [SerializeField] float cdPerAttack;
-    public int skillLv;
+
+    public int skillLv = 1;
 
     private int normalAttackCount = 0;
     private float nextAttack = 0.1f;
@@ -140,6 +141,7 @@ public class CompanionSubclass : MonoBehaviour
     }
     public void Update()
     {
+        //skill.skill.lvSkill = skillLv;
         Attack();
         Regeneration();
     }

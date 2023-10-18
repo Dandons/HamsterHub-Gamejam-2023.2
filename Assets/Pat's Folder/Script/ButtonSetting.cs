@@ -17,7 +17,7 @@ public class ButtonSetting : MonoBehaviour
     private void Start()
     {
         button = this.GetComponent<Button>();
-        button.onClick.AddListener(()=>StatWindowSetting.Instance.SetStatWindow(companion));
+        button.onClick.AddListener(()=>StatWindowSetting.Instance.SetWindow(companion));
     }
 
 }

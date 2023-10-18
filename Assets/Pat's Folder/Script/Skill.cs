@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Skill : MonoBehaviour
 {
+    public virtual int lvSkill { get; set; }
     public virtual string skillName {  get; set; }
     public virtual float baseMpUsage { get; }
     public virtual float baseDamage { get; }
-    public virtual int LvSkill {  get; set; }
     public virtual float damageAmplfier { get; }
     public virtual float mpUsageAmplfier { get; }
 

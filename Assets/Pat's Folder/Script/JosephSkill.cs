@@ -5,12 +5,11 @@ using UnityEngine;
 public class JosephSkill : Skill
 {
     public override string skillName { get => "Joseph..Beammmmm"; }
-    public int lvSkill;
     public override float baseDamage => 150;
     public override float baseMpUsage => 60;
-    public override int LvSkill { get => lvSkill; set => lvSkill = value; }
-    public override float mpUsageAmplfier => LvSkill + 1;
-    public override float damageAmplfier => (150 + (LvSkill*5))*0.01f;
+    public override int lvSkill { get; set; }
+    public override float mpUsageAmplfier => lvSkill + 1;
+    public override float damageAmplfier => (150 + (lvSkill*5))*0.01f;
 
     public override void UseSkill(Vector3 position,Collider2D enemy,float damage,float castDistance)
     {
