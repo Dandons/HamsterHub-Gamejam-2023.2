@@ -15,7 +15,9 @@ public class Enemy
     protected Transform transform;
     protected Transform target;
     public Rigidbody2D rb;
-    
+    private float DelayTime = 10f;
+    private float lastShotTime = 1f;
+
 
     public Enemy(Transform enemyTransform)
     {
@@ -42,9 +44,14 @@ public class Enemy
                     float distanceToTarget = Vector2.Distance(transform.position, target.position);
 
                     if (distanceToTarget <= attackRange)
-                    {
-                        Attack();
+                    {   
                         rb.velocity =  Vector2.zero * speed * Time.deltaTime;
+                        if (Time.time - lastShotTime >= DelayTime)
+                        {
+                            // Your shooting logic here
+                            Attack();
+                            lastShotTime = Time.time;
+                        }
                     }
                     else
                     {
@@ -67,7 +74,7 @@ public class Enemy
         transform.position = newPosition;
     }
 
-    private void Attack()
+    public virtual void Attack()
     {
         Debug.Log("Attacking" + target.name);
     }
@@ -120,16 +127,36 @@ public class EnemyMelee : Enemy
 
 public class EnemyRange : Enemy
 {
-    public EnemyRange(Transform enemyTransform) : base(enemyTransform)
+    protected float shootForce = 3f;
+    private GameObject bulletPrefab;
+    private Transform bulletSpawnPoint;
+
+    public EnemyRange(Transform enemyTransform, GameObject bulletPrefab, Transform bulletSpawnPoint) : base(enemyTransform)
     {
         attackRange = 7f;
         enemyHeathPoint = 1 + 1 * (DayCount.days - 1);
         attackDamage = 1 + 2 * (DayCount.days - 1);
         defend = 1 + 1 * (DayCount.days - 1);
+        this.bulletPrefab = bulletPrefab;
+        this.bulletSpawnPoint = bulletSpawnPoint;
+    }
+    public override void Attack()
+    {
+        
+       Debug.Log("RangeAttacking");
+
+        GameObject bullet = GameObject.Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        // Add force to the bullet to make it move forward
+        Rigidbody2D bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
+        if (bulletRigidbody != null)
+        {
+            bulletRigidbody.velocity = direction * shootForce;
+            Debug.Log("1234");
+        }
     }
 
-    // Start is called before the first frame update
-    void Start()
+        // Start is called before the first frame update
+        void Start()
     {
 
     }
