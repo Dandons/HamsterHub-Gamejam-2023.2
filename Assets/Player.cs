@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] float baseHpRegen;
     [SerializeField] float baseMpRegen;
     [SerializeField] float atkRange;
+    public static int Coin;
 
     private void Start()
     {
