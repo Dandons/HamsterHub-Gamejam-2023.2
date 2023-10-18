@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 2538613019243490938}
   - component: {fileID: 3306305844234461809}
   - component: {fileID: 2347067709073022131}
+  - component: {fileID: 4547771485846078164}
   m_Layer: 5
   m_Name: WindowComponent
   m_TagString: Untagged
@@ -334,6 +335,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4547771485846078164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693081164864342907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a55fb00d9a95b5f47bf0d48d251eba5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: {fileID: 5848128468304611378}
+  description: {fileID: 9091678910407884653}
+  icon: {fileID: 4239739597416976484}
+  fullSprite: {fileID: 8587122351838299932}
 --- !u!1 &1894639996548189127
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,7 +472,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8935675727789141360}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99999636
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -735,7 +752,7 @@ GameObject:
   - component: {fileID: 6608825756933696564}
   - component: {fileID: 4239739597416976484}
   m_Layer: 5
-  m_Name: Image
+  m_Name: statIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -810,7 +827,7 @@ GameObject:
   - component: {fileID: 2182281853806990592}
   - component: {fileID: 9091678910407884653}
   m_Layer: 5
-  m_Name: description
+  m_Name: statDescription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -965,7 +982,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00004017091}
+  m_AnchoredPosition: {x: 0, y: 0.0009451805}
   m_SizeDelta: {x: 0, y: 1080}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1151254534519833914
@@ -993,7 +1010,7 @@ GameObject:
   - component: {fileID: 6167427110246508595}
   - component: {fileID: 5848128468304611378}
   m_Layer: 5
-  m_Name: name
+  m_Name: statName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1401,7 +1418,7 @@ GameObject:
   - component: {fileID: 4582754486124839323}
   - component: {fileID: 8587122351838299932}
   m_Layer: 5
-  m_Name: Image
+  m_Name: statSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1423,8 +1440,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 1.5799866}
+  m_SizeDelta: {x: 0, y: -192.776}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4582754486124839323
 CanvasRenderer:
