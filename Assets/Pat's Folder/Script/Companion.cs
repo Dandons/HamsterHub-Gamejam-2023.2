@@ -44,17 +44,17 @@ public class Companion
             switch (rarity)
             {
                 case Rarity.Common:
-                    hpRegen = baseHpRegen * amplifier;
-                    maxHp = baseHp * amplifier; break;
+                    hpRegen = baseHpRegen+(baseHpRegen*statGrowth) * amplifier;
+                    maxHp = baseHp+(baseHp*statGrowth) * amplifier; break;
                 case Rarity.Uncommon:
-                    hpRegen = baseHpRegen * amplifier;
-                    maxHp = baseHp * amplifier; break;
+                    hpRegen = baseHpRegen + (baseHpRegen * statGrowth) * amplifier;
+                    maxHp = baseHp + (baseHp * statGrowth) * amplifier; break;
                 case Rarity.Rare:
-                    hpRegen = baseHpRegen * amplifier;
-                    maxHp = baseHp * amplifier; break;
+                    hpRegen = baseHpRegen + (baseHpRegen * statGrowth) * amplifier;
+                    maxHp = baseHp + (baseHp * statGrowth) * amplifier; break;
                 case Rarity.SuperRare:
-                    hpRegen = baseHpRegen * amplifier;
-                    maxHp = baseHp * amplifier; break;
+                    hpRegen = baseHpRegen + (baseHpRegen * statGrowth) * amplifier;
+                    maxHp = baseHp + (baseHp * statGrowth) * amplifier; break;
             }
         }
     }
@@ -90,17 +90,17 @@ public class Companion
             switch (rarity)
             {
                 case Rarity.Common:
-                    mpRegen = baseMpRegen * amplifier;
-                    maxMp = baseMp * amplifier; break;
+                    mpRegen = baseMpRegen + (baseMpRegen * statGrowth) * amplifier;
+                    maxMp = baseMp + (baseMp * statGrowth) * amplifier; break;
                 case Rarity.Uncommon:
-                    mpRegen = baseMpRegen * amplifier;
-                    maxMp = baseMp * amplifier; break;
+                    mpRegen = baseMpRegen + (baseMpRegen * statGrowth) * amplifier;
+                    maxMp = baseMp + (baseMp * statGrowth) * amplifier; break;
                 case Rarity.Rare:
-                    mpRegen = baseMpRegen * amplifier;
-                    maxMp = baseMp * amplifier; break;
+                    mpRegen = baseMpRegen + (baseMpRegen * statGrowth) * amplifier;
+                    maxMp = baseMp + (baseMp * statGrowth) * amplifier; break;
                 case Rarity.SuperRare:
-                    mpRegen = baseMpRegen * amplifier;
-                    maxMp = baseMp * amplifier; break;
+                    mpRegen = baseMpRegen + (baseMpRegen * statGrowth) * amplifier;
+                    maxMp = baseMp + (baseMp * statGrowth) * amplifier; break;
             }
         }
     }
@@ -118,13 +118,13 @@ public class Companion
             switch(rarity)
             {
                 case Rarity.Common:
-                    atk = baseAtk * amplifier; break;
+                    atk = baseAtk + (baseAtk * statGrowth) * amplifier; break;
                 case Rarity.Uncommon:
-                    atk = baseAtk * amplifier; break;
+                    atk = baseAtk + (baseAtk * statGrowth) * amplifier; break;
                 case Rarity.Rare:
-                    atk = baseAtk * amplifier; break;
+                    atk =   baseAtk + (baseAtk * statGrowth) * amplifier; break;
                 case Rarity.SuperRare:
-                    atk = baseAtk * amplifier; break;
+                    atk = baseAtk + (baseAtk * statGrowth) * amplifier; break;
             }
         }
     }
@@ -142,13 +142,13 @@ public class Companion
             switch(rarity)
             {
                 case Rarity.Common:
-                    def = baseDef * amplifier; break;
+                    def = baseDef+(baseDef*statGrowth) * amplifier; break;
                 case Rarity.Uncommon:
-                    def = baseDef * amplifier; break;
+                    def = baseDef + (baseDef * statGrowth) * amplifier; break;
                 case Rarity.Rare:
-                    def = baseDef * amplifier; break;
+                    def = baseDef + (baseDef * statGrowth) * amplifier; break;
                 case Rarity.SuperRare:
-                    def = baseDef * amplifier; break;
+                    def = baseDef + (baseDef * statGrowth) * amplifier; break;
             }
         }
     }
@@ -169,6 +169,25 @@ public class Companion
         SuperRare
     }
     public Rarity rarity = new Rarity();
+    private float statGrowth
+    {
+        get
+        {
+            switch (rarity)
+            {
+                case Rarity.Common:
+                    return 0.2f;
+                case Rarity.Uncommon:
+                    return 0.3f;
+                case Rarity.Rare:
+                    return 0.4f;
+                case Rarity.SuperRare:
+                    return 0.5f;
+            }
+            return 0.2f;
+        }
+    }
+
     public Companion(float baseatk, float basehp, float basemp, float basedef, float basehpRegen, float basempRegen)
     {
         baseAtk = baseatk;
