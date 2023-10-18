@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField] float baseMpRegen;
     [SerializeField] float atkRange;
     public static int Coin;
+    public static int Tear;
 
     private void Start()
     {
