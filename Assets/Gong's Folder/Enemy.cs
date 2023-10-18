@@ -78,7 +78,7 @@ public class Enemy
     {
         Debug.Log("Attacking" + target.name);
     }
-    private void takeDamge(float atkplayer)
+    public void takeDamge(float atkplayer)
     {
         if(defend >= atkplayer*0.9)
         {

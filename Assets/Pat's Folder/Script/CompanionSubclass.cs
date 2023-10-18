@@ -1,9 +1,12 @@
+using System;
 using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class CompanionSubclass : MonoBehaviour
 {
@@ -75,28 +78,42 @@ public class CompanionSubclass : MonoBehaviour
     {
         Collider2D[] entity = Physics2D.OverlapCircleAll(this.transform.position, atkRange);
         entity = GetEnemies(entity);
+        Collider2D nearestEnemy = AttackNearestEnemy(entity);
         if (normalAttackCount < normalPerSkill)
         {
             if (companion.attackType == Companion.AttacKType.Melee && Time.time > nextAttack && entity.Length > 0)
             {
-                for (int i = 0; i < entity.Length; i++)
+                if(nearestEnemy != null)
                 {
-                    //Get Component and call TakeDamage in ENEMY
+                    RotateAttackAnimation(nearestEnemy);
+                    float coneAngle = 30f;
+                    Vector2 direction = nearestEnemy.transform.position - transform.position;
+                    Quaternion coneRotation = Quaternion.AngleAxis(-coneAngle / 2, Vector3.forward);
+                    for (int i = 0; i < 360; i += 10) // You can adjust the increment for smoother or coarser results.
+                    {
+                        Vector2 rotatedDirection = coneRotation * direction;
+                        RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, rotatedDirection, atkRange);
+                        for (int j = 0; j < hit.Length; j++)
+                        {
+                            if (hit[j].collider.tag == "Enemy")
+                            {
+                                hit[j].collider.gameObject.GetComponent<Enemy>().takeDamge(companion.atk);
+                            }
+                        }
+                        coneRotation *= Quaternion.AngleAxis(10, Vector3.forward); // Rotate the direction for the next ray.
+                    }
+
+
+                    normalAttackCount += 1;
+                    nextAttack = Time.time + cdPerAttack;
                 }
-                normalAttackCount += 1;
-                nextAttack = Time.time + cdPerAttack;
             }
-            if (companion.attackType == Companion.AttacKType.Range && Time.time > nextAttack)
+            if (companion.attackType == Companion.AttacKType.Range && Time.time > nextAttack) //is Range and Ready to attack
             {
-                float[] enemyDistance = new float[entity.Length];
-                for (int i = 0; i < entity.Length; i++)
+                if(nearestEnemy!=null)
                 {
-                    enemyDistance = enemyDistance.Append(GetDistance(entity[i].transform.position)).ToArray();
-                }
-                if(enemyDistance.Length > 0) 
-                {
-                    Collider2D enemyToHit = entity[GetNearestDistance(enemyDistance)];
-                    //Get Component and call TakeDamage in ENEMY
+                    RotateAttackAnimation(nearestEnemy);
+                    nearestEnemy.GetComponent<Enemy>().takeDamge(companion.atk);
                     normalAttackCount += 1;
                 }
                 nextAttack = Time.time + cdPerAttack;
@@ -105,19 +122,58 @@ public class CompanionSubclass : MonoBehaviour
         }
         if(normalAttackCount >= normalPerSkill && Time.time > nextAttack && entity.Length>0 && skill.skill.skillName=="NoSkill")
         {
-            float[] enemyDistance = new float[entity.Length];
-            for (int i = 0; i < entity.Length; i++)
+            if(nearestEnemy!= null) 
             {
-                enemyDistance = enemyDistance.Append(GetDistance(entity[i].transform.position)).ToArray();
-            }
-            if (enemyDistance.Length > 0)
-            {
-                Collider2D enemyToHit = entity[GetNearestDistance(enemyDistance)];
-                SpecialAttack(enemyToHit);
+                RotateAttackAnimation(nearestEnemy);
+                SpecialAttack(nearestEnemy);
                 nextAttack = Time.time + cdPerAttack;
                 normalAttackCount = 0;
             }  
         }
+    }
+    void RotateAttackAnimation(Collider2D enemy)
+    {
+        Animator animator = this.GetComponent<Animator>();
+        Vector3 enemyPosition = enemy.gameObject.transform.position;
+        Vector2 direction = enemyPosition - transform.position;
+        float x = Math.Abs(direction.x);
+        float y = Math.Abs(direction.y);
+        if(x > y)//left or right
+        {
+            if(x==direction.x) //Xaxis is possitive value so RIGHT
+            {
+                animator.Play("Joseph_Attack_Right");
+            }
+            if (x == direction.x * -1)//X axis is negative value so LEFT
+            {
+                animator.Play("Joseph_Attack_Left");
+            }
+        }
+        if(y>x)//up or down
+        {
+            if(y==direction.y) // y Axis is possitive value so BACK
+            {
+                animator.Play("Joseph_Attack_Back");
+            }
+            if(x == direction.y * -1)// Y Axis is negative value so FRONT
+            {
+                animator.Play("Joseph_Attack_Front");
+            }
+        }
+    }
+    private Collider2D AttackNearestEnemy(Collider2D[] entity)
+    {
+        float[] enemyDistance = new float[entity.Length];
+        for (int i = 0; i < entity.Length; i++)
+        {
+            enemyDistance = enemyDistance.Append(GetDistance(entity[i].transform.position)).ToArray();
+        }
+        if (enemyDistance.Length > 0)
+        {
+            Collider2D enemyToHit = entity[GetNearestDistance(enemyDistance)];
+            return enemyToHit;
+        }
+        return null;
     }
     private void SpecialAttack(Collider2D enemy)
     {
