@@ -36,11 +36,18 @@ public class StatWindowSetting : MonoBehaviour
     {
         CompanionSubclass companionProp = companion.GetComponent<CompanionSubclass>();
         fullSprite.sprite = companion.GetComponent<SpriteRenderer>().sprite;
-        SetStatText(companionProp);
+        
+        ResetUpgradeButton();
         SetUpgradeButton(companionProp);
+        SetStatText(companionProp);
 
     }
-    void SetStatText(CompanionSubclass companionProp)
+    [ContextMenu("SetCoin")]
+    public void SetCoin()
+    {
+        Player.Coin = 999999;
+    }
+    public void SetStatText(CompanionSubclass companionProp)
     {
         name.text = companionProp.name;
         description.text = companionProp.description;
@@ -57,16 +64,73 @@ public class StatWindowSetting : MonoBehaviour
         {
             statSkill.text = "Skill Level : " + companionProp.skillLv;
         }
+        upHp.GetComponentInChildren<TMP_Text>().text = 10 * companionProp.companion.HpLv + " coin for next Lv.";
+        upMp.GetComponentInChildren<TMP_Text>().text = 10 * companionProp.companion.MpLv + " coin for next Lv.";
+        upAtk.GetComponentInChildren<TMP_Text>().text = 10 * companionProp.companion.AtkLv + " coin for next Lv.";
+        upDef.GetComponentInChildren<TMP_Text>().text = 10 * companionProp.companion.DefLv + " coin for next Lv.";
+        upSkill.GetComponentInChildren<TMP_Text>().text = 15 *companionProp.skillLv + " coin for next Lv.";
     }
-    void SetUpgradeButton(CompanionSubclass companionProp)
+    public void SetUpgradeButton(CompanionSubclass companionProp)
     {
-        upHp.GetComponent<Button>().onClick.AddListener(() => Upgrade("hp"));
+        upHp.GetComponent<Button>().onClick.AddListener(() => Upgrade("hp",companionProp));
+        upMp.GetComponent<Button>().onClick.AddListener(() => Upgrade("mp", companionProp));
+        upAtk.GetComponent<Button>().onClick.AddListener(() => Upgrade("atk", companionProp));
+        upDef.GetComponent<Button>().onClick.AddListener(() => Upgrade("def", companionProp));
+        upSkill.GetComponent<Button>().onClick.AddListener(() => Upgrade("skill", companionProp));
     }
-    void Upgrade(string stat)
+    public void ResetUpgradeButton()
+    {
+        upHp.GetComponent<Button>().onClick.RemoveAllListeners();
+        upMp.GetComponent<Button>().onClick.RemoveAllListeners();
+        upAtk.GetComponent<Button>().onClick.RemoveAllListeners();
+        upDef.GetComponent<Button>().onClick.RemoveAllListeners(    );
+        upSkill.GetComponent<Button>().onClick.RemoveAllListeners();
+    }
+    private void Upgrade(string stat , CompanionSubclass companionProp)
     {
         if(stat == "hp")
         {
-
+            if(Player.Coin > 10 * companionProp.companion.HpLv)
+            {
+                Player.Coin -= 10 * companionProp.companion.HpLv;
+                companionProp.companion.HpLv += 1;
+            }
         }
+        if(stat == "mp")
+        {
+            if(Player.Coin > 10* companionProp.companion.MpLv)
+            {
+                Player.Coin -= 10 * companionProp.companion.MpLv;
+                companionProp.companion.MpLv += 1;
+            }
+        }
+        if( stat == "atk")
+        {
+            if (Player.Coin > 10 * companionProp.companion.AtkLv)
+            {
+                Player.Coin -= 10*companionProp.companion.AtkLv;
+                companionProp.companion.AtkLv += 1;
+            }
+        }
+        if(stat == "def")
+        {
+            if(Player.Coin > 10*companionProp.companion.DefLv)
+            {
+                Player.Coin -= 10 * companionProp.companion.DefLv;
+                companionProp.companion.DefLv += 1;
+            }
+        }
+        if(stat == "skill")
+        {
+            if(companionProp.skill.skillName.ToString() != "NoSkill")
+            {
+                if (Player.Coin > 15 * companionProp.skillLv)
+                {
+                    Player.Coin -= 15 * companionProp.skillLv;
+                    companionProp.skillLv += 1;
+                }
+            } 
+        }
+        SetStatText(companionProp);
     }
 }
