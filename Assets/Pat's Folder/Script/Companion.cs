@@ -131,7 +131,7 @@ public class Companion : MonoBehaviour
             }  
         }
     }
-    void RotateAttackAnimation(Collider2D enemy)
+    private void RotateAttackAnimation(Collider2D enemy)
     {
         Animator animator = this.GetComponent<Animator>();
         Vector3 enemyPosition = enemy.gameObject.transform.position;

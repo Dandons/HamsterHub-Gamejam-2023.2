@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,8 +6,9 @@ using UnityEngine;
 
 public class RollGacha : MonoBehaviour
 {
+    public GameObject resultInterface;
     public GameObject[] companionGacha;
-    public GameObject[] FilterByRarity (CompanionProperty.Rarity rarity)
+    private GameObject[] FilterByRarity (CompanionProperty.Rarity rarity)
     {
         GameObject[] companionByRarity = null;
         for (int i = 0; i < companionGacha.Length; i++)
@@ -18,10 +20,10 @@ public class RollGacha : MonoBehaviour
         }
         return companionByRarity;
     }
-    void RecruitCompanion()
+    private GameObject RandomCompanion()
     {
         GameObject[] companion;
-        int rate = ((int)Random.Range(1f, 101f));
+        int rate = ((int)UnityEngine.Random.Range(1f, 101f));
         if(rate > 95 )
         {
             companion = FilterByRarity(CompanionProperty.Rarity.SuperRare);
@@ -38,7 +40,32 @@ public class RollGacha : MonoBehaviour
         {
             companion = FilterByRarity(CompanionProperty.Rarity.Common);
         }
-        int character = (int)Random.Range(0,companion.Length);
-        
+        int character = (int)UnityEngine.Random.Range(0,companion.Length);
+        return companion[character];   
+    }
+
+    public void RollCompanion()
+    {
+        GameObject companion =  Instantiate(RandomCompanion());
+        resultInterface.SetActive(true);
+
+    }
+    IEnumerable ShowResult()
+    {
+        //yield return new WaitUntil(()=>Input.Get);
+    }
+    private string getKey()
+    {
+        foreach (KeyCode keyPress in System.Enum.GetValues(typeof(KeyCode)))
+        {
+            if (Input.GetKeyDown(keyPress))
+            {
+                string key = keyPress.ToString();
+                String[] spearator = { "Alpha" };
+                String[] strlist = key.Split(spearator, StringSplitOptions.RemoveEmptyEntries);
+                return strlist[0];
+            }
+        }
+        return null;
     }
 }
