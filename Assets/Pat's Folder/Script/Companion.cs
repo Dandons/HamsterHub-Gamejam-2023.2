@@ -1,206 +1,209 @@
+using System;
+using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEngine.EventSystems.EventTrigger;
 
-public class Companion
+public class Companion : MonoBehaviour
 {
-    //Base Stat
-    private float baseHp;
-    private float baseMp;
-    private float baseAtk;
-    private float baseDef;
-    private float baseHpRegen;
-    private float baseMpRegen;
+    public SkillObject skill;
 
-    //Property for Companion's Hp
-    public float hpRegen;
-    private int hpLv;
-    private float hp;
-    private float maxHp;
-    public float currentHp
+    //use for set base stat(one time use)
+    [SerializeField] float baseAtk;
+    [SerializeField] float baseHp;
+    [SerializeField] float baseMp;
+    [SerializeField] float baseDef;
+    [SerializeField] float baseHpRegen;
+    [SerializeField] float baseMpRegen;
+    [SerializeField] int normalPerSkill;
+    [SerializeField] float atkRange;
+    [SerializeField] float cdPerAttack;
+
+    public int skillLv = 1;
+
+    private int normalAttackCount = 0;
+    private float nextAttack = 0.1f;
+
+    public string name;
+    public string description;
+    public Sprite icon;
+
+    public CompanionProperty companionProperty;
+    public CompanionProperty.Rarity rarity;
+    public CompanionProperty.AttacKType attackType;
+    private void Start()
     {
-        get { return hp; } 
-        set
+        companionProperty = new CompanionProperty(baseatk: baseAtk, basehp: baseHp, basemp: baseMp, basedef: baseDef, basehpRegen: baseHpRegen, basempRegen: baseMpRegen);
+        companionProperty.rarity = rarity;
+        companionProperty.attackType = attackType;
+    }
+    public void TakeDamage(float damage)
+    {
+        if(companionProperty.def > damage) { companionProperty.currentHp -= damage * 0.1f; }
+        else { companionProperty.currentHp -= damage - companionProperty.def; }
+    }
+    private float GetDistance(Vector3 enemyPosition)
+    {
+        Vector2 vectorToEnemy = enemyPosition - this.transform.position;
+        return vectorToEnemy.magnitude;
+    }
+    private int GetNearestDistance(float[] enemyDistance)
+    {
+        for (int i = 0;i < enemyDistance.Length; i++)
         {
-            hp = value;
-            if(hp > maxHp)
+            if (enemyDistance[i] == enemyDistance.Min())
             {
-                hp = maxHp;
-            }
-            if(hp < 0)
-            {
-                hp = 0;
+                return i;
             }
         }
+        return 0;
     }
-    public int HpLv
+    private Collider2D[] GetEnemies(Collider2D[] enemies)
     {
-        get { return hpLv; }
-        set
+        List<Collider2D> enemy = new List<Collider2D>();
+        foreach (Collider2D c in enemies)
         {
-            hpLv = value;
-            float amplifier = 1 + (hpLv * 2);
-            switch (rarity)
+            if (c.tag == "Enemy")
             {
-                case Rarity.Common:
-                    hpRegen = baseHpRegen+(baseHpRegen*statGrowth) * amplifier;
-                    maxHp = baseHp+(baseHp*statGrowth) * amplifier; break;
-                case Rarity.Uncommon:
-                    hpRegen = baseHpRegen + (baseHpRegen * statGrowth) * amplifier;
-                    maxHp = baseHp + (baseHp * statGrowth) * amplifier; break;
-                case Rarity.Rare:
-                    hpRegen = baseHpRegen + (baseHpRegen * statGrowth) * amplifier;
-                    maxHp = baseHp + (baseHp * statGrowth) * amplifier; break;
-                case Rarity.SuperRare:
-                    hpRegen = baseHpRegen + (baseHpRegen * statGrowth) * amplifier;
-                    maxHp = baseHp + (baseHp * statGrowth) * amplifier; break;
+                enemy.Add(c);
             }
         }
+        return enemy.ToArray();
     }
-
-    //Property for Companion's Mp
-    private float maxMp;
-    public float mpRegen;
-    private int mpLv;
-    private float mp;
-    public float currentMp
+    public void Attack()
     {
-        get { return mp; }
-        set 
-        { 
-            mp = value; 
-            if(mp > maxMp)
-            {
-                mp = maxMp;
-            }
-            if(mp < 0)
-            {
-                mp = 0;
-            }
-        }
-    }
-    public int MpLv
-    {
-        get { return mpLv; }
-        set
+        Collider2D[] entity = Physics2D.OverlapCircleAll(this.transform.position, atkRange);
+        entity = GetEnemies(entity);
+        Collider2D nearestEnemy = AttackNearestEnemy(entity);
+        if (normalAttackCount < normalPerSkill)
         {
-            mpLv = value;
-            float amplifier = 1 + (mpLv * 2);
-            switch (rarity)
+            if (companionProperty.attackType == CompanionProperty.AttacKType.Melee && Time.time > nextAttack && entity.Length > 0)
             {
-                case Rarity.Common:
-                    mpRegen = baseMpRegen + (baseMpRegen * statGrowth) * amplifier;
-                    maxMp = baseMp + (baseMp * statGrowth) * amplifier; break;
-                case Rarity.Uncommon:
-                    mpRegen = baseMpRegen + (baseMpRegen * statGrowth) * amplifier;
-                    maxMp = baseMp + (baseMp * statGrowth) * amplifier; break;
-                case Rarity.Rare:
-                    mpRegen = baseMpRegen + (baseMpRegen * statGrowth) * amplifier;
-                    maxMp = baseMp + (baseMp * statGrowth) * amplifier; break;
-                case Rarity.SuperRare:
-                    mpRegen = baseMpRegen + (baseMpRegen * statGrowth) * amplifier;
-                    maxMp = baseMp + (baseMp * statGrowth) * amplifier; break;
-            }
-        }
-    }
+                if(nearestEnemy != null)
+                {
+                    RotateAttackAnimation(nearestEnemy);
+                    float coneAngle = 30f;
+                    Vector2 direction = nearestEnemy.transform.position - transform.position;
+                    Quaternion coneRotation = Quaternion.AngleAxis(-coneAngle / 2, Vector3.forward);
+                    for (int i = 0; i < 360; i += 10) // You can adjust the increment for smoother or coarser results.
+                    {
+                        Vector2 rotatedDirection = coneRotation * direction;
+                        RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, rotatedDirection, atkRange);
+                        for (int j = 0; j < hit.Length; j++)
+                        {
+                            if (hit[j].collider.tag == "Enemy")
+                            {
+                                hit[j].collider.gameObject.GetComponent<Enemy>().takeDamge(companionProperty.atk);
+                            }
+                        }
+                        coneRotation *= Quaternion.AngleAxis(10, Vector3.forward); // Rotate the direction for the next ray.
+                    }
 
-    //Property for Companion's Atk
-    [HideInInspector]public float atk;
-    private int atkLv;
-    public int AtkLv
-    {
-        get { return atkLv; }
-        set
+
+                    normalAttackCount += 1;
+                    nextAttack = Time.time + cdPerAttack;
+                }
+            }
+            if (companionProperty.attackType == CompanionProperty.AttacKType.Range && Time.time > nextAttack) //is Range and Ready to attack
+            {
+                if(nearestEnemy!=null)
+                {
+                    RotateAttackAnimation(nearestEnemy);
+                    nearestEnemy.GetComponent<Enemy>().takeDamge(companionProperty.atk);
+                    normalAttackCount += 1;
+                }
+                nextAttack = Time.time + cdPerAttack;
+            }
+            
+        }
+        if(normalAttackCount >= normalPerSkill && Time.time > nextAttack && entity.Length>0 && skill.skill.skillName=="NoSkill")
         {
-            atkLv = value;
-            float amplifier = 1 + (atkLv * 2);
-            switch(rarity)
+            if(nearestEnemy!= null) 
             {
-                case Rarity.Common:
-                    atk = baseAtk + (baseAtk * statGrowth) * amplifier; break;
-                case Rarity.Uncommon:
-                    atk = baseAtk + (baseAtk * statGrowth) * amplifier; break;
-                case Rarity.Rare:
-                    atk =   baseAtk + (baseAtk * statGrowth) * amplifier; break;
-                case Rarity.SuperRare:
-                    atk = baseAtk + (baseAtk * statGrowth) * amplifier; break;
-            }
+                RotateAttackAnimation(nearestEnemy);
+                SpecialAttack(nearestEnemy);
+                nextAttack = Time.time + cdPerAttack;
+                normalAttackCount = 0;
+            }  
         }
     }
-
-    //Property for Companion's Defence
-    [HideInInspector] public float def;
-    private int defLv;
-    public int DefLv
+    void RotateAttackAnimation(Collider2D enemy)
     {
-        get => defLv;
-        set
+        Animator animator = this.GetComponent<Animator>();
+        Vector3 enemyPosition = enemy.gameObject.transform.position;
+        Vector2 direction = enemyPosition - transform.position;
+        float x = Math.Abs(direction.x);
+        float y = Math.Abs(direction.y);
+        if(x > y)//left or right
         {
-            defLv = value;
-            float amplifier = 1+(defLv * 2);
-            switch(rarity)
+            if(x==direction.x) //Xaxis is possitive value so RIGHT
             {
-                case Rarity.Common:
-                    def = baseDef+(baseDef*statGrowth) * amplifier; break;
-                case Rarity.Uncommon:
-                    def = baseDef + (baseDef * statGrowth) * amplifier; break;
-                case Rarity.Rare:
-                    def = baseDef + (baseDef * statGrowth) * amplifier; break;
-                case Rarity.SuperRare:
-                    def = baseDef + (baseDef * statGrowth) * amplifier; break;
+                animator.Play("Joseph_Attack_Right");
+            }
+            if (x == direction.x * -1)//X axis is negative value so LEFT
+            {
+                animator.Play("Joseph_Attack_Left");
             }
         }
-    }
-
-    //Attack type
-    public enum AttacKType
-    {
-        Range,Melee
-    }
-    public AttacKType attackType = new AttacKType();
-
-    //Rarity
-    public enum Rarity
-    {
-        Common,
-        Uncommon,
-        Rare,
-        SuperRare
-    }
-    public Rarity rarity = new Rarity();
-    private float statGrowth
-    {
-        get
+        if(y>x)//up or down
         {
-            switch (rarity)
+            if(y==direction.y) // y Axis is possitive value so BACK
             {
-                case Rarity.Common:
-                    return 0.2f;
-                case Rarity.Uncommon:
-                    return 0.3f;
-                case Rarity.Rare:
-                    return 0.4f;
-                case Rarity.SuperRare:
-                    return 0.5f;
+                animator.Play("Joseph_Attack_Back");
             }
-            return 0.2f;
+            if(x == direction.y * -1)// Y Axis is negative value so FRONT
+            {
+                animator.Play("Joseph_Attack_Front");
+            }
         }
     }
-
-    public Companion(float baseatk, float basehp, float basemp, float basedef, float basehpRegen, float basempRegen)
+    private Collider2D AttackNearestEnemy(Collider2D[] entity)
     {
-        baseAtk = baseatk;
-        baseHp = basehp;
-        baseMp = basemp;
-        baseDef = basedef;
-        baseHpRegen = basehpRegen;
-        baseMpRegen = basempRegen;
-        HpLv = 1;
-        MpLv = 1;
-        AtkLv = 1;
-        DefLv = 1;
-        currentHp = maxHp;
-        currentMp = maxMp;
+        float[] enemyDistance = new float[entity.Length];
+        for (int i = 0; i < entity.Length; i++)
+        {
+            enemyDistance = enemyDistance.Append(GetDistance(entity[i].transform.position)).ToArray();
+        }
+        if (enemyDistance.Length > 0)
+        {
+            Collider2D enemyToHit = entity[GetNearestDistance(enemyDistance)];
+            return enemyToHit;
+        }
+        return null;
+    }
+    private void SpecialAttack(Collider2D enemy)
+    {
+        float usedMp = skill.skill.baseMpUsage * skill.skill.mpUsageAmplfier;
+        if (usedMp < companionProperty.currentMp) 
+        {
+            companionProperty.currentMp -= usedMp;
+            skill.skill.UseSkill(this.transform.position,enemy,companionProperty.atk,atkRange);
+        }
+    }//skill
+
+    private void Regeneration()
+    {
+        StartCoroutine(Regen());
+    }
+    IEnumerator Regen()
+    {
+        yield return new WaitForSeconds(1);
+        companionProperty.currentHp += companionProperty.hpRegen;
+        companionProperty.currentMp += companionProperty.mpRegen;
+    }
+    public void Update()
+    {
+        //skill.skill.lvSkill = skillLv;
+        Attack();
+        Regeneration();
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(this.transform.position, atkRange);
     }
 }

@@ -21,7 +21,7 @@ public class CreateButton : MonoBehaviour
             //GetComponent for setting value in button
             RectTransform rectTransform = button.GetComponent<RectTransform>();
             ButtonSetting buttonSetting = button.GetComponent<ButtonSetting>();
-            CompanionSubclass companion = allCompanion[i].GetComponent<CompanionSubclass>();
+            Companion companion = allCompanion[i].GetComponent<Companion>();
 
             //Set value
             rectTransform.anchoredPosition = new Vector3(0, yAxis, 0);

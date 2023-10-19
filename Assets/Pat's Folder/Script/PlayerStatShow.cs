@@ -16,13 +16,13 @@ public class PlayerStatShow : Singleton<PlayerStatShow>
 
     private void Update()
     {
-        hp.GetComponent<TMP_Text>().text = "Hp Level : " + Player.Instance.playerProperty.HpLv;
-        mp.GetComponent<TMP_Text>().text = "Mp Level : " + Player.Instance.playerProperty.MpLv;
-        atk.GetComponent<TMP_Text>().text = "Atk Level : " + Player.Instance.playerProperty.AtkLv;
-        def.GetComponent<TMP_Text>().text = "Def Level : " + Player.Instance.playerProperty.DefLv;
-        upHp.GetComponent<TMP_Text>().text = "Next Lv! (" + 10 * Player.Instance.playerProperty.HpLv + " coin)";
-        upMp.GetComponent<TMP_Text>().text = "Next Lv! (" + 10 * Player.Instance.playerProperty.MpLv + " coin)";
-        upAtk.GetComponent<TMP_Text>().text = "Next Lv! (" + 10 * Player.Instance.playerProperty.AtkLv + " coin)";
-        upDef.GetComponent<TMP_Text>().text = "Next Lv! (" + 10 * Player.Instance.playerProperty.DefLv + " coin)";
+        hp.text = "Hp Level : " + Player.Instance.playerProperty.HpLv;
+        mp.text = "Mp Level : " + Player.Instance.playerProperty.MpLv;
+        atk.text = "Atk Level : " + Player.Instance.playerProperty.AtkLv;
+        def.text = "Def Level : " + Player.Instance.playerProperty.DefLv;
+        upHp.text = "Next Lv! (" + 10 * Player.Instance.playerProperty.HpLv + " coin)";
+        upMp.text = "Next Lv! (" + 10 * Player.Instance.playerProperty.MpLv + " coin)";
+        upAtk.text = "Next Lv! (" + 10 * Player.Instance.playerProperty.AtkLv + " coin)";
+        upDef.text = "Next Lv! (" + 10 * Player.Instance.playerProperty.DefLv + " coin)";
     }
 }

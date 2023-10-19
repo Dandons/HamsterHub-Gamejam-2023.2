@@ -34,7 +34,7 @@ public class StatWindowSetting : MonoBehaviour
     }
     public void SetWindow(GameObject companion)
     {
-        CompanionSubclass companionProp = companion.GetComponent<CompanionSubclass>();
+        Companion companionProp = companion.GetComponent<Companion>();
         fullSprite.sprite = companion.GetComponent<SpriteRenderer>().sprite;
         
         ResetUpgradeButton();
@@ -47,15 +47,15 @@ public class StatWindowSetting : MonoBehaviour
     {
         Player.Instance.Coin = 999999;
     }
-    public void SetStatText(CompanionSubclass companionProp)
+    public void SetStatText(Companion companionProp)
     {
         name.text = companionProp.name;
         description.text = companionProp.description;
         icon.sprite = companionProp.icon;
-        statHp.text = "Hp Level : " + companionProp.companion.HpLv;
-        statMp.text = "Mp Level : " + companionProp.companion.MpLv;
-        statAtk.text = "Atk Level : " + companionProp.companion.AtkLv;
-        statDef.text = "Def Level : " + companionProp.companion.DefLv;
+        statHp.text = "Hp Level : " + companionProp.companionProperty.HpLv;
+        statMp.text = "Mp Level : " + companionProp.companionProperty.MpLv;
+        statAtk.text = "Atk Level : " + companionProp.companionProperty.AtkLv;
+        statDef.text = "Def Level : " + companionProp.companionProperty.DefLv;
         if (companionProp.skill.skillName.ToString() == "NoSkill")
         {
             statSkill.text = "character doesn't have skill";
@@ -64,60 +64,60 @@ public class StatWindowSetting : MonoBehaviour
         {
             statSkill.text = "Skill Level : " + companionProp.skillLv;
         }
-        upHp.GetComponentInChildren<TMP_Text>().text = 10 * companionProp.companion.HpLv + " coin for next Lv.";
-        upMp.GetComponentInChildren<TMP_Text>().text = 10 * companionProp.companion.MpLv + " coin for next Lv.";
-        upAtk.GetComponentInChildren<TMP_Text>().text = 10 * companionProp.companion.AtkLv + " coin for next Lv.";
-        upDef.GetComponentInChildren<TMP_Text>().text = 10 * companionProp.companion.DefLv + " coin for next Lv.";
+        upHp.GetComponentInChildren<TMP_Text>().text = 10 * companionProp.companionProperty.HpLv + " coin for next Lv.";
+        upMp.GetComponentInChildren<TMP_Text>().text = 10 * companionProp.companionProperty.MpLv + " coin for next Lv.";
+        upAtk.GetComponentInChildren<TMP_Text>().text = 10 * companionProp.companionProperty.AtkLv + " coin for next Lv.";
+        upDef.GetComponentInChildren<TMP_Text>().text = 10 * companionProp.companionProperty.DefLv + " coin for next Lv.";
         upSkill.GetComponentInChildren<TMP_Text>().text = 15 *companionProp.skillLv + " coin for next Lv.";
     }
-    public void SetUpgradeButton(CompanionSubclass companionProp)
+    public void SetUpgradeButton(Companion companionProp)
     {
-        upHp.GetComponent<Button>().onClick.AddListener(() => Upgrade("hp",companionProp));
-        upMp.GetComponent<Button>().onClick.AddListener(() => Upgrade("mp", companionProp));
-        upAtk.GetComponent<Button>().onClick.AddListener(() => Upgrade("atk", companionProp));
-        upDef.GetComponent<Button>().onClick.AddListener(() => Upgrade("def", companionProp));
-        upSkill.GetComponent<Button>().onClick.AddListener(() => Upgrade("skill", companionProp));
+        upHp.onClick.AddListener(() => Upgrade("hp",companionProp));
+        upMp.onClick.AddListener(() => Upgrade("mp", companionProp));
+        upAtk.onClick.AddListener(() => Upgrade("atk", companionProp));
+        upDef.onClick.AddListener(() => Upgrade("def", companionProp));
+        upSkill.onClick.AddListener(() => Upgrade("skill", companionProp));
     }
     public void ResetUpgradeButton()
     {
-        upHp.GetComponent<Button>().onClick.RemoveAllListeners();
-        upMp.GetComponent<Button>().onClick.RemoveAllListeners();
-        upAtk.GetComponent<Button>().onClick.RemoveAllListeners();
-        upDef.GetComponent<Button>().onClick.RemoveAllListeners(    );
-        upSkill.GetComponent<Button>().onClick.RemoveAllListeners();
+        upHp.onClick.RemoveAllListeners();
+        upMp.onClick.RemoveAllListeners();
+        upAtk.onClick.RemoveAllListeners();
+        upDef.onClick.RemoveAllListeners(    );
+        upSkill.onClick.RemoveAllListeners();
     }
-    private void Upgrade(string stat , CompanionSubclass companionProp)
+    private void Upgrade(string stat , Companion companionProp)
     {
         if(stat == "hp")
         {
-            if(Player.Instance.Coin > 10 * companionProp.companion.HpLv)
+            if(Player.Instance.Coin > 10 * companionProp.companionProperty.HpLv)
             {
-                Player.Instance.Coin -= 10 * companionProp.companion.HpLv;
-                companionProp.companion.HpLv += 1;
+                Player.Instance.Coin -= 10 * companionProp.companionProperty.HpLv;
+                companionProp.companionProperty.HpLv += 1;
             }
         }
         if(stat == "mp")    
         {
-            if(Player.Instance.Coin > 10* companionProp.companion.MpLv)
+            if(Player.Instance.Coin > 10* companionProp.companionProperty.MpLv)
             {
-                Player.Instance.Coin -= 10 * companionProp.companion.MpLv;
-                companionProp.companion.MpLv += 1;
+                Player.Instance.Coin -= 10 * companionProp.companionProperty.MpLv;
+                companionProp.companionProperty.MpLv += 1;
             }
         }
         if( stat == "atk")
         {
-            if (Player.Instance.Coin > 10 * companionProp.companion.AtkLv)
+            if (Player.Instance.Coin > 10 * companionProp.companionProperty.AtkLv)
             {
-                Player.Instance.Coin -= 10*companionProp.companion.AtkLv;
-                companionProp.companion.AtkLv += 1;
+                Player.Instance.Coin -= 10*companionProp.companionProperty.AtkLv;
+                companionProp.companionProperty.AtkLv += 1;
             }
         }
         if(stat == "def")
         {
-            if(Player.Instance.Coin > 10*companionProp.companion.DefLv)
+            if(Player.Instance.Coin > 10*companionProp.companionProperty.DefLv)
             {
-                Player.Instance.Coin -= 10 * companionProp.companion.DefLv;
-                companionProp.companion.DefLv += 1;
+                Player.Instance.Coin -= 10 * companionProp.companionProperty.DefLv;
+                companionProp.companionProperty.DefLv += 1;
             }
         }
         if(stat == "skill")

@@ -20,7 +20,7 @@ public class CompanionShopMenu : MonoBehaviour
     }
     private void SetStatWindow()
     {
-        CompanionSubclass companionProperty = companion.GetComponent<CompanionSubclass>();
+        Companion companionProperty = companion.GetComponent<Companion>();
         icon.sprite = companionProperty.icon;
         fullSprite.sprite = companion.GetComponent<SpriteRenderer>().sprite;
         name.text = companionProperty.name;
