@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Singleton<Player> 
 {
     public PlayerProperty playerProperty;
+    public static Player Instance;
     [SerializeField] float baseAtk;
     [SerializeField] float baseHp;
     [SerializeField] float baseMp;
@@ -13,11 +14,12 @@ public class Player : MonoBehaviour
     [SerializeField] float baseHpRegen;
     [SerializeField] float baseMpRegen;
     [SerializeField] float atkRange;
-    public static int Coin;
-    public static int Tear;
+    public int Coin;
+    public int Tear;
 
     private void Start()
     {
+        Instance = this;
         playerProperty = new PlayerProperty(baseatk: baseAtk, basehp: baseHp, basemp: baseMp, basedef: baseDef, basehpRegen: baseHpRegen, basempRegen: baseMpRegen);
     }
     public void TakeDamage(float damage)

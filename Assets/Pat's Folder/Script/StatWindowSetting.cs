@@ -45,7 +45,7 @@ public class StatWindowSetting : MonoBehaviour
     [ContextMenu("SetCoin")]
     public void SetCoin()
     {
-        Player.Coin = 999999;
+        Player.Instance.Coin = 999999;
     }
     public void SetStatText(CompanionSubclass companionProp)
     {
@@ -90,33 +90,33 @@ public class StatWindowSetting : MonoBehaviour
     {
         if(stat == "hp")
         {
-            if(Player.Coin > 10 * companionProp.companion.HpLv)
+            if(Player.Instance.Coin > 10 * companionProp.companion.HpLv)
             {
-                Player.Coin -= 10 * companionProp.companion.HpLv;
+                Player.Instance.Coin -= 10 * companionProp.companion.HpLv;
                 companionProp.companion.HpLv += 1;
             }
         }
-        if(stat == "mp")
+        if(stat == "mp")    
         {
-            if(Player.Coin > 10* companionProp.companion.MpLv)
+            if(Player.Instance.Coin > 10* companionProp.companion.MpLv)
             {
-                Player.Coin -= 10 * companionProp.companion.MpLv;
+                Player.Instance.Coin -= 10 * companionProp.companion.MpLv;
                 companionProp.companion.MpLv += 1;
             }
         }
         if( stat == "atk")
         {
-            if (Player.Coin > 10 * companionProp.companion.AtkLv)
+            if (Player.Instance.Coin > 10 * companionProp.companion.AtkLv)
             {
-                Player.Coin -= 10*companionProp.companion.AtkLv;
+                Player.Instance.Coin -= 10*companionProp.companion.AtkLv;
                 companionProp.companion.AtkLv += 1;
             }
         }
         if(stat == "def")
         {
-            if(Player.Coin > 10*companionProp.companion.DefLv)
+            if(Player.Instance.Coin > 10*companionProp.companion.DefLv)
             {
-                Player.Coin -= 10 * companionProp.companion.DefLv;
+                Player.Instance.Coin -= 10 * companionProp.companion.DefLv;
                 companionProp.companion.DefLv += 1;
             }
         }
@@ -124,9 +124,9 @@ public class StatWindowSetting : MonoBehaviour
         {
             if(companionProp.skill.skillName.ToString() != "NoSkill")
             {
-                if (Player.Coin > 15 * companionProp.skillLv)
+                if (Player.Instance.Coin > 15 * companionProp.skillLv)
                 {
-                    Player.Coin -= 15 * companionProp.skillLv;
+                    Player.Instance.Coin -= 15 * companionProp.skillLv;
                     companionProp.skillLv += 1;
                 }
             } 
