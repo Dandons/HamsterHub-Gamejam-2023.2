@@ -21,7 +21,7 @@ public class RollGacha : MonoBehaviour
     void RecruitCompanion()
     {
         GameObject[] companion;
-        int rate = ((int)Random.Range(0f, 100f));
+        int rate = ((int)Random.Range(1f, 101f));
         if(rate > 95 )
         {
             companion = FilterByRarity(CompanionProperty.Rarity.SuperRare);
@@ -39,13 +39,6 @@ public class RollGacha : MonoBehaviour
             companion = FilterByRarity(CompanionProperty.Rarity.Common);
         }
         int character = (int)Random.Range(0,companion.Length);
+        
     }
-
-    [ContextMenu("test")]
-    void test()
-    {
-        int test = (int)Random.Range(0, 1);
-        Debug.Log(test);
-    }
-
 }
