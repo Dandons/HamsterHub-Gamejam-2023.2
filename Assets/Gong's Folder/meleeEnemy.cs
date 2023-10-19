@@ -5,11 +5,12 @@ using UnityEngine;
 public class meleeEnemy : MonoBehaviour
 {
 
+    public Animator aim;
     public EnemyMelee myenemy;
     // Start is called before the first frame update
     void Start()
     {
-        myenemy = new EnemyMelee(transform);
+        myenemy = new EnemyMelee(transform,aim);
         myenemy.rb = this.GetComponent<Rigidbody2D>();
         myenemy.FixedUpdate();
     }
@@ -19,4 +20,5 @@ public class meleeEnemy : MonoBehaviour
     {
         myenemy.FixedUpdate();
     }
+   
 }

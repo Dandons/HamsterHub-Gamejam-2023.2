@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
-public class Enemy
+public class Enemy 
 {
     protected float enemyHeathPoint;
     protected float attackDamage;
@@ -15,14 +16,15 @@ public class Enemy
     protected Transform transform;
     protected Transform target;
     public Rigidbody2D rb;
-    private float DelayTime = 10f;
-    private float lastShotTime = 1f;
+    private Animator aim;
+    private float DelayTime = 5f;
+    private float lastShotTime = 5f;
 
 
-    public Enemy(Transform enemyTransform)
+    public Enemy(Transform enemyTransform, Animator aim)
     {
         transform = enemyTransform;
-    
+        this.aim = aim;
 }
 
 
@@ -38,24 +40,27 @@ public class Enemy
                 if (target == null || Vector2.Distance(transform.position, collider.transform.position) < Vector2.Distance(transform.position, target.position))
                 {
                     target = collider.transform;
+                    
+                   
                 }
-                if(target != null)
+                if (target != null)
                 {
                     float distanceToTarget = Vector2.Distance(transform.position, target.position);
 
                     if (distanceToTarget <= attackRange)
-                    {   
+                    {
                         rb.velocity =  Vector2.zero * speed * Time.deltaTime;
                         if (Time.time - lastShotTime >= DelayTime)
                         {
-                            // Your shooting logic here
                             Attack();
+
+                            aim.SetTrigger("attacking");
                             lastShotTime = Time.time;
                         }
                     }
                     else
                     {
-                        // Move towards the targe
+                        target = collider.transform;
                         direction = (target.position - transform.position);
                         rb.velocity = direction * speed * Time.deltaTime;
 
@@ -99,39 +104,41 @@ public class Enemy
 
         }
     }
-    
+
+
 }
 
 public class EnemyMelee : Enemy
 {
-    public EnemyMelee(Transform enemyTransform) : base(enemyTransform)
+
+    private float DelayTime = 5f;
+    private float lastShotTime = 5f;
+    public EnemyMelee(Transform enemyTransform, Animator aim) : base(enemyTransform,aim)
     {
-        attackRange = 1f;
+        attackRange = 2f;
         enemyHeathPoint = 1 + 2 * (DayCount.days - 1);
         attackDamage = 1 + 1 * (DayCount.days - 1);
         defend = 1 + 2 * (DayCount.days - 1);
+        
     }
-
-    // Start is called before the first frame update
-    void Start()
+    public override void Attack()
     {
 
-    }
+        Debug.Log("meleeAttacking");
 
-    // Update is called once per
-    private void Update()
-    {
     }
-
+   
 }
+
+    
 
 public class EnemyRange : Enemy
 {
-    protected float shootForce = 3f;
+    protected float shootForce = 1f;
     private GameObject bulletPrefab;
     private Transform bulletSpawnPoint;
 
-    public EnemyRange(Transform enemyTransform, GameObject bulletPrefab, Transform bulletSpawnPoint) : base(enemyTransform)
+    public EnemyRange(Transform enemyTransform, Animator aim, GameObject bulletPrefab, Transform bulletSpawnPoint) : base(enemyTransform,aim)
     {
         attackRange = 7f;
         enemyHeathPoint = 1 + 1 * (DayCount.days - 1);

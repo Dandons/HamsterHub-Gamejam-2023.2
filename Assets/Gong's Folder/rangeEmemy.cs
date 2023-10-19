@@ -7,11 +7,11 @@ public class rangeEmemy : MonoBehaviour
     public EnemyRange myenemy;
     public Transform bulletSpawnPoint;
     public GameObject bulletPrefab;
-    protected float shootForce = 3f;
+    public Animator aim;
     // Start is called before the first frame update
     void Start()
     {
-        myenemy = new EnemyRange(transform, bulletPrefab,bulletSpawnPoint);
+        myenemy = new EnemyRange(transform, aim, bulletPrefab,bulletSpawnPoint);
         myenemy.rb = this.GetComponent<Rigidbody2D>();
     }
 
