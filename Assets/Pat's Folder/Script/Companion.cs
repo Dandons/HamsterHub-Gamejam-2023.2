@@ -142,22 +142,22 @@ public class Companion : MonoBehaviour
         {
             if(x==direction.x) //Xaxis is possitive value so RIGHT
             {
-                animator.Play("Joseph_Attack_Right");
+                animator.SetTrigger("right");
             }
             if (x == direction.x * -1)//X axis is negative value so LEFT
             {
-                animator.Play("Joseph_Attack_Left");
+                animator.SetTrigger("left");
             }
         }
         if(y>x)//up or down
         {
             if(y==direction.y) // y Axis is possitive value so BACK
             {
-                animator.Play("Joseph_Attack_Back");
+                animator.SetTrigger("back");
             }
             if(x == direction.y * -1)// Y Axis is negative value so FRONT
             {
-                animator.Play("Joseph_Attack_Front");
+                animator.SetTrigger("front");
             }
         }
     }
