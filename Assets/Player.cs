@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Singleton<Player> 
+public class Player : Singleton<Player>
 {
     public PlayerProperty playerProperty;
     public static Player Instance;
@@ -16,7 +16,8 @@ public class Player : Singleton<Player>
     [SerializeField] float atkRange;
     public int Coin;
     public int Tear;
-    
+    public Animator aim;
+
     [SerializeField] float moveSpeed;
     private Vector2 input;
     private Rigidbody2D rb;
@@ -33,7 +34,25 @@ public class Player : Singleton<Player>
         input.x = Input.GetAxis("Horizontal");
         input.y = Input.GetAxis("Vertical");
         input.Normalize();
-        rb.velocity = new Vector2(input.x * moveSpeed,  input.y * moveSpeed);
+        rb.velocity = new Vector2(input.x * moveSpeed, input.y * moveSpeed);
+        
+        if(Input.GetKeyDown(KeyCode.W))
+        {
+            aim.SetTrigger("fronting");
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            aim.SetTrigger("lefting");
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            aim.SetTrigger("righting");
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            aim.SetTrigger("backing");
+        }
+
 
     }
     public void TakeDamage(float damage)
