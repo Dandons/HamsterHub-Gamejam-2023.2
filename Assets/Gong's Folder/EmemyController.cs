@@ -19,6 +19,8 @@ public class EmemyController : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        numberOfEnemiesToSpawn = DayCount.days;
+
     }
 
     IEnumerator SpawnEnemys()
@@ -38,12 +40,9 @@ public class EmemyController : MonoBehaviour
             {
                 Instantiate(rangeEnemyPrefab, randomSpawnPoint, Quaternion.identity);
             }
-            yield return new WaitForSeconds(spawnInterval);
         }
+        yield return new WaitForSeconds(10f);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        
-    }
+    
 }

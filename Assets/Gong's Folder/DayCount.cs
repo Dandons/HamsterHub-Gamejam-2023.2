@@ -8,21 +8,16 @@ public class DayCount : MonoBehaviour
 {
     public TextMeshProUGUI timeDisplay; // Display Time
     public TextMeshProUGUI dayDisplay; // Display Day
-    public Volume ppv; // this is the post processing volume
 
     public float tick; // Increasing the tick, increases second rate
     public float seconds;
     public int mins;
     public int hours;
     public static int days = 1;
-
-    public bool activateLights; // checks if lights are on
-    public GameObject[] lights; // all the lights we want on when its dark
-    public SpriteRenderer[] stars; // star sprites 
+    
     // Start is called before the first frame update
     void Start()
     {
-        ppv = gameObject.GetComponent<Volume>();
     }
 
     // Update is called once per frame
@@ -54,54 +49,9 @@ public class DayCount : MonoBehaviour
             hours = 0;
             days += 1;
         }
-        ControlPPV(); // changes post processing volume after calculation
     }
 
-    public void ControlPPV() // used to adjust the post processing slider.
-    {
-        //ppv.weight = 0;
-        if (hours >= 19 && hours < 20) // dusk at 19:00 / 7pm    -   until 20:00 / 9pm
-        {
-            ppv.weight = (float)mins / 60; // since dusk is 1 hr, we just divide the mins by 60 which will slowly increase from 0 - 1 
-            for (int i = 0; i < stars.Length; i++)
-            {
-                stars[i].color = new Color(stars[i].color.r, stars[i].color.g, stars[i].color.b, (float)mins / 60); // change the alpha value of the stars so they become visible
-            }
-
-            if (activateLights == false) // if lights havent been turned on
-            {
-                if (mins > 50) // wait until pretty dark
-                {
-                    for (int i = 0; i < lights.Length; i++)
-                    {
-                        lights[i].SetActive(true); // turn them all on
-                    }
-                    activateLights = true;
-                }
-            }
-        }
-
-
-        if (hours >= 5 && hours < 6) // Dawn at 5:00 / 5am    -   until 6:00 / 6am
-        {
-            ppv.weight = 1 - (float)mins / 60; // we minus 1 because we want it to go from 1 - 0
-            for (int i = 0; i < stars.Length; i++)
-            {
-                stars[i].color = new Color(stars[i].color.r, stars[i].color.g, stars[i].color.b, 1 - (float)mins / 60); // make stars invisible
-            }
-            if (activateLights == true) // if lights are on
-            {
-                if (mins > 20) // wait until pretty bright
-                {
-                    for (int i = 0; i < lights.Length; i++)
-                    {
-                        lights[i].SetActive(false); // shut them off
-                    }
-                    activateLights = false;
-                }
-            }
-        }
-    }
+  
 
     public void DisplayTime() // Shows time and day in ui
     {
