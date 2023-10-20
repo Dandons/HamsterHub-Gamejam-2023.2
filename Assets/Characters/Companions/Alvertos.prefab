@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3141892966939704812
+--- !u!1 &3602923984688628780
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,41 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 767786879403287469}
-  - component: {fileID: 2887296480767555177}
-  - component: {fileID: 4477336890787965644}
-  - component: {fileID: 466603183753693767}
-  - component: {fileID: 3543463183566752094}
-  - component: {fileID: 49905087927617674}
+  - component: {fileID: 8510361278652094057}
+  - component: {fileID: 1098117166343902929}
+  - component: {fileID: 294927545914387135}
+  - component: {fileID: 4409510759796828805}
+  - component: {fileID: 6631043345170586215}
+  - component: {fileID: 1713726254715635532}
   m_Layer: 0
-  m_Name: Sara Ruiz
+  m_Name: Alvertos
   m_TagString: Companion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &767786879403287469
+--- !u!4 &8510361278652094057
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3141892966939704812}
+  m_GameObject: {fileID: 3602923984688628780}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1051.4423, y: 569.68, z: -7.4157605}
+  m_LocalPosition: {x: -1.53, y: 0.38, z: 0}
   m_LocalScale: {x: 1.501436, y: 1.501436, z: 1.501436}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &2887296480767555177
+--- !u!212 &1098117166343902929
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3141892966939704812}
+  m_GameObject: {fileID: 3602923984688628780}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f0f7d60dc6c856f45acd6515735be185, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 86be6dd343c5a1f469ebef1f64170009, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -88,46 +88,46 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4477336890787965644
+--- !u!114 &294927545914387135
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3141892966939704812}
+  m_GameObject: {fileID: 3602923984688628780}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cb34020d96b57354a91cbdaea4f8218a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   skill: {fileID: 11400000, guid: d9348271daf219a4ba02ad0cb023b88f, type: 2}
-  baseAtk: 120
+  baseAtk: 100
   baseHp: 100
-  baseMp: 9.82
-  baseDef: 85
+  baseMp: 40
+  baseDef: 70
   baseHpRegen: 1
-  baseMpRegen: 1.17
+  baseMpRegen: 0.5
   normalPerSkill: 99
   atkRange: 5
-  cdPerAttack: 0.5
+  cdPerAttack: 1
   skillLv: 0
   lowTier: 1
-  name: Sara
+  name: Alvertos
   description: 
-  icon: {fileID: 21300000, guid: cf79f8d3379d1a4469dd98d0cf1823d7, type: 3}
-  rarity: 2
-  attackType: 0
---- !u!95 &466603183753693767
+  icon: {fileID: 21300000, guid: 70a200e86dd31d0479c118e1621ed275, type: 3}
+  rarity: 0
+  attackType: 1
+--- !u!95 &4409510759796828805
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3141892966939704812}
+  m_GameObject: {fileID: 3602923984688628780}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cd08807ecbae12348bb3e1aefe71a573, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3a5de33feb6056b4391bf9001ccd0f0f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -138,13 +138,13 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!70 &3543463183566752094
+--- !u!70 &6631043345170586215
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3141892966939704812}
+  m_GameObject: {fileID: 3602923984688628780}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -173,14 +173,14 @@ CapsuleCollider2D:
   m_Offset: {x: 0.010681152, y: -0.032073975}
   m_Size: {x: 1.1849365, y: 1.6635132}
   m_Direction: 0
---- !u!50 &49905087927617674
+--- !u!50 &1713726254715635532
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3141892966939704812}
+  m_GameObject: {fileID: 3602923984688628780}
   m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0

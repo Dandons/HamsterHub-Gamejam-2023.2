@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skill: {fileID: 11400000, guid: d9348271daf219a4ba02ad0cb023b88f, type: 2}
-  baseAtk: 120
+  baseAtk: 100
   baseHp: 80
   baseMp: 40
   baseDef: 40
@@ -112,10 +112,10 @@ MonoBehaviour:
   cdPerAttack: 1
   skillLv: 0
   lowTier: 1
-  name: Kara Windward
+  name: 'Kara '
   description: 
   icon: {fileID: 21300000, guid: 98819a51f2249a14390695f1600ed404, type: 3}
-  rarity: 1
+  rarity: 0
   attackType: 0
 --- !u!95 &1598918396088139716
 Animator:
