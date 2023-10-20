@@ -18,10 +18,11 @@ public class OpenCompanionShop : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     openedShop = Instantiate(companionShop);
-                    //disable ative method delegate in player
+                    Player.Instance.DisableActiveMethod();
                 }
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
+                    Player.Instance.SetActiveMethod();
                     Destroy(openedShop);
                 }
                 

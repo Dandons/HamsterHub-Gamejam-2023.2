@@ -42,6 +42,7 @@ public class PlayerProperty
         {
             hpLv = value;
             float amplifier = 1 + (hpLv * 2);
+            atk = baseAtk + (10 * atkLv) * amplifier;
         }
     }
     //Property for Companion's Mp
@@ -72,7 +73,7 @@ public class PlayerProperty
         {
             mpLv = value;
             float amplifier = 1 + (mpLv * 2);
-           
+            mp = baseMp + (10 * mpLv) * amplifier;
         }
     }
     //Property for Companion's Atk
@@ -85,7 +86,7 @@ public class PlayerProperty
         {
             atkLv = value;
             float amplifier = 1 + (atkLv * 2);
-      
+            atk = baseAtk + (10 * atkLv) * amplifier;
         }
     }
     //Property for Companion's Defence
@@ -98,6 +99,7 @@ public class PlayerProperty
         {
             defLv = value;
             float amplifier = 1 + (defLv * 2);
+            def = baseDef + (10 * defLv) * amplifier;
    
         }
     }
@@ -109,10 +111,10 @@ public class PlayerProperty
         baseDef = basedef;
         baseHpRegen = basehpRegen;
         baseMpRegen = basempRegen;
-        HpLv = 1;
-        MpLv = 1;
-        AtkLv = 1;
-        DefLv = 1;
+        HpLv = 0;
+        MpLv = 0;
+        AtkLv = 0;
+        DefLv = 0;
         currentHp = maxHp;
         currentMp = maxMp;
     }

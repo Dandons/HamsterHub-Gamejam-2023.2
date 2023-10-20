@@ -23,7 +23,7 @@ public class Companion : MonoBehaviour
     [SerializeField] float atkRange;
     [SerializeField] float cdPerAttack;
 
-    public int skillLv = 1;
+    public int skillLv = 0;
 
     public bool lowTier;
 
@@ -187,7 +187,7 @@ public class Companion : MonoBehaviour
         if (usedMp < companionProperty.currentMp) 
         {
             companionProperty.currentMp -= usedMp;
-            skill.skill.UseSkill(this.transform.position,enemy,companionProperty.atk,atkRange);
+            skill.skill.UseSkill(this.transform.position,enemy,companionProperty.atk,atkRange,skillLv);
         }
     }//skill
 
@@ -203,7 +203,6 @@ public class Companion : MonoBehaviour
     }
     public void Update()
     {
-        //skill.skill.lvSkill = skillLv;
         Attack();
         Regeneration();
     }

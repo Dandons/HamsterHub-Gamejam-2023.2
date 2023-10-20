@@ -64,11 +64,11 @@ public class StatWindowSetting : MonoBehaviour
         {
             statSkill.text = "Skill Level : " + companionProp.skillLv;
         }
-        upHp.GetComponentInChildren<TMP_Text>().text = 10 * companionProp.companionProperty.HpLv + " coin for next Lv.";
-        upMp.GetComponentInChildren<TMP_Text>().text = 10 * companionProp.companionProperty.MpLv + " coin for next Lv.";
-        upAtk.GetComponentInChildren<TMP_Text>().text = 10 * companionProp.companionProperty.AtkLv + " coin for next Lv.";
-        upDef.GetComponentInChildren<TMP_Text>().text = 10 * companionProp.companionProperty.DefLv + " coin for next Lv.";
-        upSkill.GetComponentInChildren<TMP_Text>().text = 15 *companionProp.skillLv + " coin for next Lv.";
+        upHp.GetComponentInChildren<TMP_Text>().text = 10 * (companionProp.companionProperty.HpLv + 1) + " coin for next Lv.";
+        upMp.GetComponentInChildren<TMP_Text>().text = 10 * (companionProp.companionProperty.MpLv + 1) + " coin for next Lv.";
+        upAtk.GetComponentInChildren<TMP_Text>().text = 10 * (companionProp.companionProperty.AtkLv + 1)     + " coin for next Lv.";
+        upDef.GetComponentInChildren<TMP_Text>().text = 10 * (companionProp.companionProperty.DefLv + 1) + " coin for next Lv.";
+        upSkill.GetComponentInChildren<TMP_Text>().text = 15 *(companionProp.skillLv+1) + " coin for next Lv.";
     }
     public void SetUpgradeButton(Companion companionProp)
     {
@@ -90,33 +90,33 @@ public class StatWindowSetting : MonoBehaviour
     {
         if(stat == "hp")
         {
-            if(Player.Instance.Coin > 10 * companionProp.companionProperty.HpLv)
+            if(Player.Instance.Coin > 10 * (companionProp.companionProperty.HpLv + 1))
             {
-                Player.Instance.Coin -= 10 * companionProp.companionProperty.HpLv;
+                Player.Instance.Coin -= 10 * (companionProp.companionProperty.HpLv + 1);
                 companionProp.companionProperty.HpLv += 1;
             }
         }
         if(stat == "mp")    
         {
-            if(Player.Instance.Coin > 10* companionProp.companionProperty.MpLv)
+            if(Player.Instance.Coin > 10 * (companionProp.companionProperty.MpLv + 1))
             {
-                Player.Instance.Coin -= 10 * companionProp.companionProperty.MpLv;
+                Player.Instance.Coin -= 10 * (companionProp.companionProperty.MpLv + 1)   ;
                 companionProp.companionProperty.MpLv += 1;
             }
         }
         if( stat == "atk")
         {
-            if (Player.Instance.Coin > 10 * companionProp.companionProperty.AtkLv)
+            if (Player.Instance.Coin > 10 * (companionProp.companionProperty.AtkLv + 1))
             {
-                Player.Instance.Coin -= 10*companionProp.companionProperty.AtkLv;
+                Player.Instance.Coin -= 10 * (companionProp.companionProperty.AtkLv + 1);
                 companionProp.companionProperty.AtkLv += 1;
             }
         }
         if(stat == "def")
         {
-            if(Player.Instance.Coin > 10*companionProp.companionProperty.DefLv)
+            if(Player.Instance.Coin > 10 * (companionProp.companionProperty.DefLv + 1))
             {
-                Player.Instance.Coin -= 10 * companionProp.companionProperty.DefLv;
+                Player.Instance.Coin -= 10 * (companionProp.companionProperty.DefLv + 1);
                 companionProp.companionProperty.DefLv += 1;
             }
         }
@@ -124,9 +124,9 @@ public class StatWindowSetting : MonoBehaviour
         {
             if(companionProp.skill.skillName.ToString() != "NoSkill")
             {
-                if (Player.Instance.Coin > 15 * companionProp.skillLv)
+                if (Player.Instance.Coin > 15 * (companionProp.skillLv+1))
                 {
-                    Player.Instance.Coin -= 15 * companionProp.skillLv;
+                    Player.Instance.Coin -= 15 * (companionProp.skillLv + 1);
                     companionProp.skillLv += 1;
                 }
             } 

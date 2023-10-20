@@ -44,10 +44,18 @@ public class UpstatPlayer : MonoBehaviour
                 }
                 break;
             case 4:
-                //upstat PLayer's heal
+                if (Player.Instance.Coin >= 20 * Player.Instance.healLv)
+                {
+                    Player.Instance.Coin -= 20 * Player.Instance.healLv;
+                    Player.Instance.healLv += 1;
+                }
                 break;
             case 5:
-                //upstat Player's fireball
+                if (Player.Instance.Coin >= 20 * Player.Instance.fireballLv)
+                {
+                    Player.Instance.Coin -= 20 * Player.Instance.fireballLv;
+                    Player.Instance.fireballLv += 1;
+                }
                 break;
         }
     }

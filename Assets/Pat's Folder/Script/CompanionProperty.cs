@@ -196,10 +196,10 @@ public class CompanionProperty
         baseDef = basedef;
         baseHpRegen = basehpRegen;
         baseMpRegen = basempRegen;
-        HpLv = 1;
-        MpLv = 1;
-        AtkLv = 1;
-        DefLv = 1;
+        HpLv = 0;
+        MpLv = 0;
+        AtkLv = 0;
+        DefLv = 0;
         currentHp = maxHp;
         currentMp = maxMp;
     }
