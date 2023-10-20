@@ -14,6 +14,10 @@ public class Player : Singleton<Player>
     [SerializeField] float baseHpRegen;
     [SerializeField] float baseMpRegen;
     [SerializeField] float atkRange;
+
+    public delegate void ActiveMethod();
+    public ActiveMethod activeMethod;
+
     public int Coin;
     public int Tear;
     public Animator aim;
@@ -29,14 +33,17 @@ public class Player : Singleton<Player>
         rb = this.GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    private void Move()
     {
         input.x = Input.GetAxis("Horizontal");
         input.y = Input.GetAxis("Vertical");
         input.Normalize();
         rb.velocity = new Vector2(input.x * moveSpeed, input.y * moveSpeed);
-        
-        if(Input.GetKeyDown(KeyCode.W))
+    }
+
+    private void SetAnimation()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
         {
             aim.SetTrigger("fronting");
         }
@@ -52,6 +59,14 @@ public class Player : Singleton<Player>
         {
             aim.SetTrigger("backing");
         }
+    }
+
+    private void Update()
+    {
+        Regeneration();
+        activeMethod();
+        
+        
 
 
     }
