@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static UnityEngine.EventSystems.EventTrigger;
@@ -55,14 +56,19 @@ public class Companion : MonoBehaviour
     }
     private int GetNearestDistance(float[] enemyDistance)
     {
-        for (int i = 0;i < enemyDistance.Length; i++)
+        float minDistance = float.MaxValue;
+        int minIndex = 0;
+
+        for (int i = 0; i < enemyDistance.Length; i++)
         {
-            if (enemyDistance[i] == enemyDistance.Min())
+            if (enemyDistance[i] < minDistance)
             {
-                return i;
+                minDistance = enemyDistance[i];
+                minIndex = i;
             }
         }
-        return 0;
+
+        return minIndex;
     }
     private Collider2D[] GetEnemies(Collider2D[] enemies)
     {
@@ -79,8 +85,9 @@ public class Companion : MonoBehaviour
     public void Attack()
     {
         Collider2D[] entity = Physics2D.OverlapCircleAll(this.transform.position, atkRange);
-        entity = GetEnemies(entity);
-        Collider2D nearestEnemy = AttackNearestEnemy(entity);
+        Collider2D[] enemyGroup = GetEnemies(entity);
+        Collider2D nearestEnemy = AttackNearestEnemy(enemyGroup);
+        Debug.Log(nearestEnemy.gameObject.name);
         if (normalAttackCount < normalPerSkill)
         {
             if (companionProperty.attackType == CompanionProperty.AttacKType.Melee && Time.time > nextAttack && entity.Length > 0)
@@ -112,9 +119,10 @@ public class Companion : MonoBehaviour
             }
             if (companionProperty.attackType == CompanionProperty.AttacKType.Range && Time.time > nextAttack) //is Range and Ready to attack
             {
-                if(nearestEnemy!=null)
+                if(nearestEnemy.gameObject!=null)
                 {
                     RotateAttackAnimation(nearestEnemy);
+                    
                     nearestEnemy.GetComponent<Enemy>().takeDamge(companionProperty.atk);
                     normalAttackCount += 1;
                 }
@@ -122,7 +130,7 @@ public class Companion : MonoBehaviour
             }
             
         }
-        if(normalAttackCount >= normalPerSkill && Time.time > nextAttack && entity.Length>0 && skill.skill.skillName=="NoSkill")
+        if(normalAttackCount >= normalPerSkill && Time.time > nextAttack && entity.Length>0 && lowTier)
         {
             if(nearestEnemy!= null) 
             {
@@ -172,7 +180,7 @@ public class Companion : MonoBehaviour
         float[] enemyDistance = new float[entity.Length];
         for (int i = 0; i < entity.Length; i++)
         {
-            enemyDistance = enemyDistance.Append(GetDistance(entity[i].transform.position)).ToArray();
+            enemyDistance[i] = GetDistance(entity[i].transform.position);
         }
         if (enemyDistance.Length > 0)
         {
