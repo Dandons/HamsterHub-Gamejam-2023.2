@@ -16,6 +16,7 @@ public class Player : Singleton<Player>
     private float baseMpRegen = 0.7f;
     public float atkRange;
     public bool reflection;
+    
 
     private Fireball fireball;
     public Rigidbody2D fireballShape;
@@ -246,4 +247,6 @@ public class Player : Singleton<Player>
         playerProperty.currentHp += playerProperty.hpRegen;
         playerProperty.currentMp += playerProperty.mpRegen;
     }
+
+
 }
