@@ -25,6 +25,8 @@ public class Companion : MonoBehaviour
 
     public int skillLv = 1;
 
+    public bool lowTier;
+
     private int normalAttackCount = 0;
     private float nextAttack = 0.1f;
 
@@ -138,7 +140,7 @@ public class Companion : MonoBehaviour
         Vector2 direction = enemyPosition - transform.position;
         float x = Math.Abs(direction.x);
         float y = Math.Abs(direction.y);
-        if(x > y)//left or right
+        if(x > y && !lowTier)//left or right
         {
             if(x==direction.x) //Xaxis is possitive value so RIGHT
             {
@@ -149,7 +151,7 @@ public class Companion : MonoBehaviour
                 animator.SetTrigger("left");
             }
         }
-        if(y>x)//up or down
+        if(y>x && !lowTier)//up or down
         {
             if(y==direction.y) // y Axis is possitive value so BACK
             {
@@ -159,6 +161,10 @@ public class Companion : MonoBehaviour
             {
                 animator.SetTrigger("front");
             }
+        }
+        if (lowTier)
+        {
+            animator.SetTrigger("attack");
         }
     }
     private Collider2D AttackNearestEnemy(Collider2D[] entity)

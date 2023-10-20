@@ -331,7 +331,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3473400166256296031}
         m_TargetAssemblyTypeName: UpstatPlayer, Assembly-CSharp
         m_MethodName: upstat
         m_Mode: 3
@@ -564,6 +564,7 @@ GameObject:
   - component: {fileID: 1702958470541772497}
   - component: {fileID: 3123315613948760600}
   - component: {fileID: 4431583026221148199}
+  - component: {fileID: 7227674148185774756}
   m_Layer: 5
   m_Name: NavigateArea
   m_TagString: Untagged
@@ -631,6 +632,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7227674148185774756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282854124471040282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67b2039043b9b44cab660938c654a10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInterface: {fileID: 4956355140150096657}
+  GachaInterface: {fileID: 6388615315481108756}
+  DefenceInterface: {fileID: 1391263408193341585}
 --- !u!1 &308584887011866756
 GameObject:
   m_ObjectHideFlags: 0
@@ -2649,7 +2665,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 231.83801, y: 305.15137}
+  m_AnchoredPosition: {x: 231.83801, y: 271}
   m_SizeDelta: {x: -568.29, y: -714.3096}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7233135895619296229
@@ -2811,7 +2827,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3473400166256296031}
         m_TargetAssemblyTypeName: UpstatPlayer, Assembly-CSharp
         m_MethodName: upstat
         m_Mode: 3
@@ -2944,7 +2960,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3473400166256296031}
         m_TargetAssemblyTypeName: UpstatPlayer, Assembly-CSharp
         m_MethodName: upstat
         m_Mode: 3
@@ -3153,7 +3169,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7227674148185774756}
         m_TargetAssemblyTypeName: Navigate, Assembly-CSharp
         m_MethodName: ChangeInterface
         m_Mode: 3
@@ -3362,7 +3378,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7227674148185774756}
         m_TargetAssemblyTypeName: Navigate, Assembly-CSharp
         m_MethodName: ChangeInterface
         m_Mode: 3
@@ -3385,13 +3401,14 @@ GameObject:
   - component: {fileID: 5250933228133978354}
   - component: {fileID: 5396770729612318548}
   - component: {fileID: 1176763487052175824}
+  - component: {fileID: 3473400166256296031}
   m_Layer: 5
   m_Name: Stat Interface
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5250933228133978354
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3454,6 +3471,24 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3473400166256296031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4956355140150096657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8aea4aef0c937648a8cd1c64434af26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: {fileID: 1186076845103964382}
+  mp: {fileID: 8739438407439731676}
+  atk: {fileID: 2030009620666775124}
+  def: {fileID: 7195616104971743019}
+  heal: {fileID: 5861552469619350913}
+  fireball: {fileID: 4377634808695304493}
 --- !u!1 &5002389327755919438
 GameObject:
   m_ObjectHideFlags: 0
@@ -3732,7 +3767,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Theasdasssss
+  m_text: A girl who have two side
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3741,8 +3776,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4292269782
+  m_fontColor: {r: 0.8396226, g: 0.8396226, b: 0.8396226, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3759,10 +3794,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 107.8
-  m_fontSizeBase: 150
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 999
   m_fontStyle: 0
@@ -4995,7 +5030,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3473400166256296031}
         m_TargetAssemblyTypeName: UpstatPlayer, Assembly-CSharp
         m_MethodName: upstat
         m_Mode: 3
@@ -5024,7 +5059,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &459632295357597125
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5985,7 +6020,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3473400166256296031}
         m_TargetAssemblyTypeName: UpstatPlayer, Assembly-CSharp
         m_MethodName: upstat
         m_Mode: 3
@@ -6444,7 +6479,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3473400166256296031}
         m_TargetAssemblyTypeName: UpstatPlayer, Assembly-CSharp
         m_MethodName: upstat
         m_Mode: 3
@@ -6577,7 +6612,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7227674148185774756}
         m_TargetAssemblyTypeName: Navigate, Assembly-CSharp
         m_MethodName: ChangeInterface
         m_Mode: 3
