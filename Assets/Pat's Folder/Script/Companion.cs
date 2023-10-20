@@ -87,7 +87,6 @@ public class Companion : MonoBehaviour
         Collider2D[] entity = Physics2D.OverlapCircleAll(this.transform.position, atkRange);
         Collider2D[] enemyGroup = GetEnemies(entity);
         Collider2D nearestEnemy = AttackNearestEnemy(enemyGroup);
-        Debug.Log(nearestEnemy.gameObject.name);
         if (normalAttackCount < normalPerSkill)
         {
             if (companionProperty.attackType == CompanionProperty.AttacKType.Melee && Time.time > nextAttack && entity.Length > 0)
@@ -119,7 +118,7 @@ public class Companion : MonoBehaviour
             }
             if (companionProperty.attackType == CompanionProperty.AttacKType.Range && Time.time > nextAttack) //is Range and Ready to attack
             {
-                if(nearestEnemy.gameObject!=null)
+                if(nearestEnemy!=null)
                 {
                     RotateAttackAnimation(nearestEnemy);
                     
@@ -213,6 +212,10 @@ public class Companion : MonoBehaviour
     {
         Attack();
         Regeneration();
+        if(companionProperty.currentHp <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
     private void OnDrawGizmos()
     {

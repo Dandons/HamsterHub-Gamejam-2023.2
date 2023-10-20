@@ -230,8 +230,12 @@ public class Player : Singleton<Player>
     private void Update()
     {
         activeMethod();
+        if(playerProperty.currentHp <= 0)
+        {
+            //reset world
+        }
     }
-
+    
     public void TakeDamage(float damage)
     {
         if (playerProperty.def > damage) { playerProperty.currentHp -= damage * 0.1f; }
