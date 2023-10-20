@@ -14,9 +14,11 @@ GameObject:
   - component: {fileID: 1602793787144514258}
   - component: {fileID: 7714830550398481628}
   - component: {fileID: 6786029772767905330}
+  - component: {fileID: 5557073058248572467}
+  - component: {fileID: 2906620362142171037}
   m_Layer: 0
   m_Name: Jera
-  m_TagString: Companion
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,15 +123,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fad9a5ba4e5346b43bc1c80a02d34100, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseAtk: 0
-  baseHp: 0
-  baseMp: 0
-  baseDef: 0
-  baseHpRegen: 0
-  baseMpRegen: 0
   atkRange: 0
+  reflection: 0
+  fireballShape: {fileID: 0}
+  fireballLv: 0
+  healLv: 0
   Coin: 0
   Tear: 0
+  aim: {fileID: 5541589870160418948}
   moveSpeed: 5
 --- !u!50 &7714830550398481628
 Rigidbody2D:
@@ -203,3 +204,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.30859852, y: 0.5261597}
   m_EdgeRadius: 0
+--- !u!114 &5557073058248572467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7791625614805856124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d414926d08585fa4fb20fe435228f9a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2906620362142171037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7791625614805856124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6292ec0681c2828448370f3d0d43fdae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

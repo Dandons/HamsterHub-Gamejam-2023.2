@@ -1036,7 +1036,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2612240069744635629}
         m_TargetAssemblyTypeName: RollGacha, Assembly-CSharp
         m_MethodName: RollCompanion
         m_Mode: 1
@@ -3408,7 +3408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5250933228133978354
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5053,13 +5053,14 @@ GameObject:
   - component: {fileID: 459632295357597125}
   - component: {fileID: 3746824823211570617}
   - component: {fileID: 4489018553255227638}
+  - component: {fileID: 2612240069744635629}
   m_Layer: 5
   m_Name: Gacha Interface
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &459632295357597125
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5119,6 +5120,30 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2612240069744635629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6388615315481108756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa58398219454274dae3d64ab54ecdfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resultInterface: {fileID: 2393502369963973090}
+  companionGacha:
+  - {fileID: 3602923984688628780, guid: 42de01aece02913429990a262adc5063, type: 3}
+  - {fileID: 2004809828399307715, guid: 54d79f48ccc7e314397de3b20b55f1f3, type: 3}
+  - {fileID: 1556749163667635353, guid: 81a0a7813eb821047884a253a5a53e52, type: 3}
+  - {fileID: 1331485013887728628, guid: b6b3c720f61b8d843b0c53f88379c34f, type: 3}
+  - {fileID: 3336521740600400165, guid: 25f5b773f730d894b9c992d84a25291d, type: 3}
+  - {fileID: 3765498460406868069, guid: dadf1de631089d147a00e6b8eaca204b, type: 3}
+  - {fileID: 402957571430445978, guid: 2ec6d076ca0557745b195a33948e453d, type: 3}
+  - {fileID: 6577672699896046801, guid: 350f4ceafb1ed8b4f9388ee2c1268dda, type: 3}
+  - {fileID: 4853007451383817715, guid: 3a31168ed36507945b09d284103c96cd, type: 3}
+  - {fileID: 3141892966939704812, guid: ee971f0b747d0e74089db4427a4a586a, type: 3}
 --- !u!1 &6693971274258566785
 GameObject:
   m_ObjectHideFlags: 0

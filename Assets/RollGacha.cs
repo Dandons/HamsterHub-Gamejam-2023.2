@@ -10,54 +10,54 @@ public class RollGacha : MonoBehaviour
 {
     public GameObject resultInterface;
     public GameObject[] companionGacha;
-    private int[] FilterByRarity (CompanionProperty.Rarity rarity)
+    private int[] FilterByRarity(CompanionProperty.Rarity rarity)
     {
-        int[] companionByRarity = new int[companionGacha.Length];
+        List<int> companionByRarity = new List<int>();
         for (int i = 0; i < companionGacha.Length; i++)
         {
             if (companionGacha[i].GetComponent<Companion>().rarity == rarity)
             {
-                //Debug.Log()
-                companionByRarity.Append(i);
+                companionByRarity.Add(i);
             }
         }
-        return companionByRarity;
+        return companionByRarity.ToArray();
     }
     private GameObject RandomCompanion()
     {
         int[] companion;
-        int rate = ((int)UnityEngine.Random.Range(1f, 101f));
-        if(rate > 95 )
+        int rate = (int)UnityEngine.Random.Range(1f, 101f);
+        if (rate >= 95)
         {
-            companion = (FilterByRarity(CompanionProperty.Rarity.SuperRare));
+            companion = FilterByRarity(CompanionProperty.Rarity.SuperRare);
         }
-        else if(rate > 80)
+        else if (rate >= 80)
         {
-            companion = (FilterByRarity(CompanionProperty.Rarity.Rare));
+            companion = FilterByRarity(CompanionProperty.Rarity.Rare);
         }
-        else if(rate >50)
+        else if (rate >= 50)
         {
             companion = FilterByRarity(CompanionProperty.Rarity.Uncommon);
         }
         else
         {
-            companion = (FilterByRarity(CompanionProperty.Rarity.Common));
+            companion = FilterByRarity(CompanionProperty.Rarity.Common);
         }
-        int character = (int)UnityEngine.Random.Range(0,companion.Length);
-        
-        return companionGacha[companion[character]];   
+        int character = (int)UnityEngine.Random.Range(0, companion.Length);
+        int companionIndex = companion[character];
+        Debug.Log(companionGacha[companionIndex].GetComponent<Companion>().name);
+        return companionGacha[companionIndex];
     }
 
     public void RollCompanion()
     {
-        GameObject companion =  Instantiate(RandomCompanion());
-
-        resultInterface.transform.GetChild(0).GetComponent<Image>().sprite = companion.GetComponent<SpriteRenderer>().sprite;
-        resultInterface.transform.GetChild(1).GetComponent<TMP_Text>().text = companion.GetComponent<Companion>().name;
-
-
-        StartCoroutine(ShowResult());
-
+        if(Player.Instance.Coin - 100 >= 0)
+        {
+            Player.Instance.Coin -= 100;
+            GameObject companion =  Instantiate(RandomCompanion());
+            resultInterface.transform.GetChild(0).GetComponent<Image>().sprite = companion.GetComponent<SpriteRenderer>().sprite;
+            resultInterface.transform.GetChild(1).GetComponent<TMP_Text>().text = companion.GetComponent<Companion>().name;
+            StartCoroutine(ShowResult());
+        }
     }
 
     IEnumerator ShowResult()
