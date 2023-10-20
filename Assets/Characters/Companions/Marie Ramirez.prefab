@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1051.4423, y: 569.68, z: -7.4157605}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.501436, y: 1.501436, z: 1.501436}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -108,8 +108,8 @@ MonoBehaviour:
   baseHpRegen: 0.5
   baseMpRegen: 0.5
   normalPerSkill: 99
-  atkRange: 2
-  cdPerAttack: 1.5
+  atkRange: 5
+  cdPerAttack: 1
   skillLv: 0
   lowTier: 1
   name: Marie Ramirez
