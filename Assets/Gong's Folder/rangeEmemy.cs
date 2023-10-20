@@ -8,6 +8,7 @@ public class rangeEmemy : MonoBehaviour
     public Transform bulletSpawnPoint;
     public GameObject bulletPrefab;
     public Animator aim;
+    private float enemyHeathPoint;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +20,10 @@ public class rangeEmemy : MonoBehaviour
     void Update()
     {
         myenemy.FixedUpdate();
+        if (enemyHeathPoint < 0)
+        {
+            Destroy(gameObject);
+        }
 
     }
 

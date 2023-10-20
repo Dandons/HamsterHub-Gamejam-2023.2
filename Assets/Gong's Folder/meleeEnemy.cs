@@ -7,6 +7,7 @@ public class meleeEnemy : MonoBehaviour
 
     public Animator aim;
     public EnemyMelee myenemy;
+    private float enemyHeathPoint;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +20,10 @@ public class meleeEnemy : MonoBehaviour
     void Update()
     {
         myenemy.FixedUpdate();
+        if (enemyHeathPoint < 0)
+        {
+            Destroy(gameObject);
+        }
     }
    
 }

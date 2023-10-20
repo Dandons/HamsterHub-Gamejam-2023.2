@@ -88,12 +88,17 @@ public class Enemy
         if(defend >= atkplayer*0.9)
         {
             allDamge = atkplayer - defend;
+            enemyHeathPoint -= allDamge;
         }
         else
         {
             allDamge = atkplayer - defend;
         }
+
+
     }
+
+    
 
     public void OnTriggerEnter(Collider other)
     {
