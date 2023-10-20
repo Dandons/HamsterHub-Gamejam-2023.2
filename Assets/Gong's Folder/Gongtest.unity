@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3acce96f776fbe43944e23044f22253, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnInterval: 5
+  spawnInterval: 2
   spawnArea: {fileID: 1343670672}
   numberOfEnemiesToSpawn: 10
   meleeEnemyPrefab: {fileID: 3744907336229189663, guid: 0591e7adc54eb544cb237753a9a7e883, type: 3}
