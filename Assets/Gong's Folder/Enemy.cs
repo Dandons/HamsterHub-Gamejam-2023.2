@@ -35,7 +35,7 @@ public class Enemy
 
         foreach (Collider2D collider in colliders)
         {
-            if (collider.CompareTag("Companion"))
+            if (collider.CompareTag("Companion")||collider.CompareTag("Player"))
             {
                 if (target == null || Vector2.Distance(transform.position, collider.transform.position) < Vector2.Distance(transform.position, target.position))
                 {
@@ -52,7 +52,7 @@ public class Enemy
                         rb.velocity =  Vector2.zero * speed * Time.deltaTime;
                         if (Time.time - lastShotTime >= DelayTime)
                         {
-                            Attack();
+                            Attack(collider);
 
                             aim.SetTrigger("attacking");
                             lastShotTime = Time.time;
@@ -79,9 +79,16 @@ public class Enemy
         transform.position = newPosition;
     }
 
-    public virtual void Attack()
+    public virtual void Attack(Collider2D player)
     {
-        Debug.Log("Attacking" + target.name);
+        if (player.tag == "Player")
+        {
+            player.GetComponent<Player>().TakeDamage(attackDamage);
+        }
+        if(player.tag == "Companion")
+        {
+            player.GetComponent<Companion>().TakeDamage(attackDamage);
+        }
     }
     public void takeDamge(float atkplayer)
     {
@@ -126,10 +133,9 @@ public class EnemyMelee : Enemy
         defend = 1 + 2 * (DayCount.days - 1);
         
     }
-    public override void Attack()
+    public override void Attack(Collider2D player)
     {
-
-        Debug.Log("meleeAttacking");
+        base.Attack(player);
 
     }
    
@@ -152,7 +158,7 @@ public class EnemyRange : Enemy
         this.bulletPrefab = bulletPrefab;
         this.bulletSpawnPoint = bulletSpawnPoint;
     }
-    public override void Attack()
+    public override void Attack(Collider2D player)
     {
         
        Debug.Log("RangeAttacking");
