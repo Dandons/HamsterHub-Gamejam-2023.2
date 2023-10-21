@@ -6,7 +6,7 @@ using System.Linq;
 public class Enemy : MonoBehaviour
 {
     public float enemyHeathPoint;
-    protected float attackDamage;
+    public float attackDamage;
     protected float allDamge;
     protected float speed = 10f;
     protected float defend;

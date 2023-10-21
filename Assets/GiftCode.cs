@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GiftCode : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private TMP_InputField inputField;
+    private void Start()
     {
-        
+        inputField = GetComponent<TMP_InputField>();
     }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if(inputField.text == "Patricia_so_cute")
+        {
+            Player.Instance.Coin = 9999;
+        }
     }
 }

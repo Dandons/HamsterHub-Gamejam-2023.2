@@ -154,18 +154,18 @@ public class Player : Singleton<Player>
                 Vector3 spawnPoint = new Vector2(enemyToHit.transform.position.x,enemyToHit.transform.position.y + 2);
                 Rigidbody2D theFist = Instantiate(fist, spawnPoint, Quaternion.identity);
                 theFist.AddForce(spawnPoint - enemyToHit.transform.position);
-                Collider2D[] areaDamaged = Physics2D.OverlapCircleAll(enemyToHit.transform.position, 0.5f);
+                Collider2D[] areaDamaged = Physics2D.OverlapCircleAll(enemyToHit.transform.position, 1);
                 for(int i = 0; i < areaDamaged.Length; i++)
                 {
                     meleeEnemy mEnemy;
                     rangeEmemy rEnemy;
                     if (areaDamaged[i].TryGetComponent(out mEnemy))
                     {
-                        areaDamaged[i].GetComponent<meleeEnemy>().myenemy.takeDamge(playerProperty.atk-50);
+                        areaDamaged[i].GetComponent<meleeEnemy>().myenemy.takeDamge(playerProperty.atk);
                     }
                     if (areaDamaged[i].TryGetComponent(out rEnemy))
                     {
-                        areaDamaged[i].GetComponent<rangeEmemy>().myenemy.takeDamge(playerProperty.atk-50);
+                        areaDamaged[i].GetComponent<rangeEmemy>().myenemy.takeDamge(playerProperty.atk);
                     }
                 }
                 Destroy(theFist.gameObject,1);
