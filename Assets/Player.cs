@@ -16,7 +16,8 @@ public class Player : Singleton<Player>
     private float baseMpRegen = 0.7f;
     public float atkRange;
     public bool reflection;
-    
+
+    private float nextAttack = 0.1f;
     public Rigidbody2D fist;
     private Fireball fireball;
     public Rigidbody2D fireballShape;
@@ -141,9 +142,9 @@ public class Player : Singleton<Player>
     }
     public void NormalAttack()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)&&Time.time > nextAttack)
         {
-            //select nearest enemy to hit
+            nextAttack = Time.time + 1.5f;
             Collider2D[] enemy = Physics2D.OverlapCircleAll(this.transform.position, atkRange);
             enemy = GetEnemies(enemy);
             if(enemy.Length != 0)
@@ -153,7 +154,7 @@ public class Player : Singleton<Player>
                 Vector3 spawnPoint = new Vector2(enemyToHit.transform.position.x,enemyToHit.transform.position.y + 2);
                 Rigidbody2D theFist = Instantiate(fist, spawnPoint, Quaternion.identity);
                 theFist.AddForce(spawnPoint - enemyToHit.transform.position);
-                Collider2D[] areaDamaged = Physics2D.OverlapCircleAll(enemyToHit.transform.position, 1);
+                Collider2D[] areaDamaged = Physics2D.OverlapCircleAll(enemyToHit.transform.position, 0.5f);
                 for(int i = 0; i < areaDamaged.Length; i++)
                 {
                     meleeEnemy mEnemy;
