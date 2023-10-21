@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class Enemy 
+public class Enemy : MonoBehaviour
 {
     protected float enemyHeathPoint;
     protected float attackDamage;
@@ -35,7 +35,7 @@ public class Enemy
 
         foreach (Collider2D collider in colliders)
         {
-            if (collider.CompareTag("Companion")||collider.CompareTag("Player"))
+            if (collider.CompareTag("Companion") || collider.CompareTag("Player"))
             {
                 if (target == null || Vector2.Distance(transform.position, collider.transform.position) < Vector2.Distance(transform.position, target.position))
                 {

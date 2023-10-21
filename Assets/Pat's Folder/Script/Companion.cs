@@ -118,11 +118,12 @@ public class Companion : MonoBehaviour
             }
             if (companionProperty.attackType == CompanionProperty.AttacKType.Range && Time.time > nextAttack) //is Range and Ready to attack
             {
-                if(nearestEnemy!=null)
+                if(nearestEnemy != null)
                 {
                     RotateAttackAnimation(nearestEnemy);
                     
-                    nearestEnemy.GetComponent<Enemy>().takeDamge(companionProperty.atk);
+                    nearestEnemy.AddComponent<Enemy>().takeDamge(companionProperty.atk);
+
                     normalAttackCount += 1;
                 }
                 nextAttack = Time.time + cdPerAttack;
@@ -131,15 +132,18 @@ public class Companion : MonoBehaviour
         }
         if(normalAttackCount >= normalPerSkill && Time.time > nextAttack && entity.Length>0 && lowTier)
         {
-            if(nearestEnemy!= null) 
+            if(nearestEnemy != null) 
             {
                 RotateAttackAnimation(nearestEnemy);
                 SpecialAttack(nearestEnemy);
+
                 nextAttack = Time.time + cdPerAttack;
                 normalAttackCount = 0;
             }  
         }
+      
     }
+    
     private void RotateAttackAnimation(Collider2D enemy)
     {
         Animator animator = this.GetComponent<Animator>();
