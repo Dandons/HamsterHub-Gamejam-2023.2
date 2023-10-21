@@ -26,8 +26,6 @@ public class Enemy : MonoBehaviour
         transform = enemyTransform;
         this.aim = aim;
 }
-
-
     public virtual void FixedUpdate()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectRange);
@@ -71,14 +69,12 @@ public class Enemy : MonoBehaviour
 
      
     }
-
     protected void Move(Vector2 direction)
     {   
         
         Vector3 newPosition = new Vector3(direction.x, direction.y, 0) * speed * Time.deltaTime;
         transform.position = newPosition;
     }
-
     public virtual void Attack(Collider2D player)
     {
         if (player.tag == "Player")
@@ -105,9 +101,6 @@ public class Enemy : MonoBehaviour
 
 
     }
-
-    
-
     public void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -117,29 +110,20 @@ public class Enemy : MonoBehaviour
 
         }
     }
-
-
 }
 
 public class EnemyMelee : Enemy
 {
-
     private float DelayTime = 5f;
     private float lastShotTime = 5f;
     public EnemyMelee(Transform enemyTransform, Animator aim) : base(enemyTransform,aim)
     {
         attackRange = 2f;
-        enemyHeathPoint = 50 + 2 * (DayCount.days - 1);
-        attackDamage = 30 + 1 * (DayCount.days - 1);
+        enemyHeathPoint = 100 + 2 * (DayCount.days - 1);
+        attackDamage = 70 + 1 * (DayCount.days - 1);
         defend = 20 + 2 * (DayCount.days - 1);
         
     }
-    public override void Attack(Collider2D player)
-    {
-        base.Attack(player);
-
-    }
-   
 }
 
     
@@ -153,9 +137,9 @@ public class EnemyRange : Enemy
     public EnemyRange(Transform enemyTransform, Animator aim, GameObject bulletPrefab, Transform bulletSpawnPoint) : base(enemyTransform,aim)
     {
         attackRange = 7f;
-        enemyHeathPoint = 20 + 1 * (DayCount.days - 1);
-        attackDamage = 40 + 2 * (DayCount.days - 1);
-        defend = 20 + 1 * (DayCount.days - 1);
+        enemyHeathPoint = 80 + 1 * (DayCount.days - 1);
+        attackDamage = 100 + 2 * (DayCount.days - 1);
+        defend = 50 + 1 * (DayCount.days - 1);
         this.bulletPrefab = bulletPrefab;
         this.bulletSpawnPoint = bulletSpawnPoint;
     }

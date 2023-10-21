@@ -159,7 +159,6 @@ public class CompanionProperty
         Range,Melee
     }
     public AttacKType attackType = new AttacKType();
-
     //Rarity
     public enum Rarity
     {
@@ -187,7 +186,6 @@ public class CompanionProperty
             return 0.2f;
         }
     }
-
     public CompanionProperty(float baseatk, float basehp, float basemp, float basedef, float basehpRegen, float basempRegen)
     {
         baseAtk = baseatk;
