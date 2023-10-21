@@ -17,7 +17,7 @@ public class Player : Singleton<Player>
     public float atkRange;
     public bool reflection;
     
-
+    public Rigidbody2D fist;
     private Fireball fireball;
     public Rigidbody2D fireballShape;
     [HideInInspector] public int fireballLv = 0;
@@ -27,8 +27,8 @@ public class Player : Singleton<Player>
     [HideInInspector] public delegate void ActiveMethod();
     [HideInInspector] public ActiveMethod activeMethod;
 
-    [HideInInspector] public int Coin;
-    [HideInInspector] public int Tear;
+    [HideInInspector] public int Coin =0 ;
+    [HideInInspector] public int Tear = 0;
     public Animator aim;
 
     [SerializeField] float moveSpeed;
@@ -150,7 +150,24 @@ public class Player : Singleton<Player>
             {
                 Collider2D enemyToHit = AttackNearestEnemy(enemy);
                 RotateAttackAnimation(enemyToHit);
-                enemyToHit.GetComponent<Enemy>().takeDamge(playerProperty.atk);
+                Vector3 spawnPoint = new Vector2(enemyToHit.transform.position.x,enemyToHit.transform.position.y + 2);
+                Rigidbody2D theFist = Instantiate(fist, spawnPoint, Quaternion.identity);
+                theFist.AddForce(spawnPoint - enemyToHit.transform.position);
+                Collider2D[] areaDamaged = Physics2D.OverlapCircleAll(enemyToHit.transform.position, 1);
+                for(int i = 0; i < areaDamaged.Length; i++)
+                {
+                    meleeEnemy mEnemy;
+                    rangeEmemy rEnemy;
+                    if (areaDamaged[i].TryGetComponent(out mEnemy))
+                    {
+                        areaDamaged[i].GetComponent<meleeEnemy>().myenemy.takeDamge(playerProperty.atk-50);
+                    }
+                    if (areaDamaged[i].TryGetComponent(out rEnemy))
+                    {
+                        areaDamaged[i].GetComponent<rangeEmemy>().myenemy.takeDamge(playerProperty.atk-50);
+                    }
+                }
+                Destroy(theFist.gameObject,1);
             } 
         }
     }

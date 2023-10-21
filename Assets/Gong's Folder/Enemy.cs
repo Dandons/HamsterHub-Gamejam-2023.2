@@ -5,7 +5,7 @@ using System.Linq;
 
 public class Enemy : MonoBehaviour
 {
-    protected float enemyHeathPoint;
+    public float enemyHeathPoint;
     protected float attackDamage;
     protected float allDamge;
     protected float speed = 10f;
@@ -100,6 +100,7 @@ public class Enemy : MonoBehaviour
         else
         {
             allDamge = atkplayer - defend;
+            enemyHeathPoint -= allDamge;
         }
 
 
@@ -128,9 +129,9 @@ public class EnemyMelee : Enemy
     public EnemyMelee(Transform enemyTransform, Animator aim) : base(enemyTransform,aim)
     {
         attackRange = 2f;
-        enemyHeathPoint = 1 + 2 * (DayCount.days - 1);
-        attackDamage = 1 + 1 * (DayCount.days - 1);
-        defend = 1 + 2 * (DayCount.days - 1);
+        enemyHeathPoint = 50 + 2 * (DayCount.days - 1);
+        attackDamage = 30 + 1 * (DayCount.days - 1);
+        defend = 20 + 2 * (DayCount.days - 1);
         
     }
     public override void Attack(Collider2D player)
@@ -152,9 +153,9 @@ public class EnemyRange : Enemy
     public EnemyRange(Transform enemyTransform, Animator aim, GameObject bulletPrefab, Transform bulletSpawnPoint) : base(enemyTransform,aim)
     {
         attackRange = 7f;
-        enemyHeathPoint = 1 + 1 * (DayCount.days - 1);
-        attackDamage = 1 + 2 * (DayCount.days - 1);
-        defend = 1 + 1 * (DayCount.days - 1);
+        enemyHeathPoint = 20 + 1 * (DayCount.days - 1);
+        attackDamage = 40 + 2 * (DayCount.days - 1);
+        defend = 20 + 1 * (DayCount.days - 1);
         this.bulletPrefab = bulletPrefab;
         this.bulletSpawnPoint = bulletSpawnPoint;
     }

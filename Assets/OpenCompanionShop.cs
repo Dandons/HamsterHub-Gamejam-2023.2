@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class OpenCompanionShop : MonoBehaviour
 {
+    public GameObject playerUI;
     public GameObject companionShop;
     private GameObject openedShop;
     public float detectRange;
@@ -17,11 +18,13 @@ public class OpenCompanionShop : MonoBehaviour
                 
                 if (Input.GetKeyDown(KeyCode.E))
                 {
+                    playerUI.SetActive(false);
                     openedShop = Instantiate(companionShop);
                     Player.Instance.DisableActiveMethod();
                 }
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
+                    playerUI.SetActive(true);
                     Player.Instance.SetActiveMethod();
                     Destroy(openedShop);
                 }

@@ -87,12 +87,15 @@ public class Companion : MonoBehaviour
         Collider2D[] entity = Physics2D.OverlapCircleAll(this.transform.position, atkRange);
         Collider2D[] enemyGroup = GetEnemies(entity);
         Collider2D nearestEnemy = AttackNearestEnemy(enemyGroup);
-        if (normalAttackCount < normalPerSkill)
+        if (normalAttackCount < normalPerSkill || lowTier)
         {
+            
             if (companionProperty.attackType == CompanionProperty.AttacKType.Melee && Time.time > nextAttack && entity.Length > 0)
             {
-                if(nearestEnemy != null)
+                Debug.Log("hi");
+                if (nearestEnemy != null)
                 {
+                    Debug.Log(nearestEnemy.gameObject.name);
                     RotateAttackAnimation(nearestEnemy);
                     float coneAngle = 30f;
                     Vector2 direction = nearestEnemy.transform.position - transform.position;
@@ -103,9 +106,15 @@ public class Companion : MonoBehaviour
                         RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, rotatedDirection, atkRange);
                         for (int j = 0; j < hit.Length; j++)
                         {
-                            if (hit[j].collider.tag == "Enemy")
+                            meleeEnemy mEnemy;
+                            rangeEmemy rEnemy;
+                            if (hit[j].collider.TryGetComponent(out mEnemy))
                             {
-                                hit[j].collider.gameObject.GetComponent<Enemy>().takeDamge(companionProperty.atk);
+                                hit[j].collider.GetComponent<meleeEnemy>().myenemy.takeDamge(companionProperty.atk);
+                            }
+                            if (hit[j].collider.TryGetComponent(out rEnemy))
+                            {
+                                hit[j].collider.GetComponent<rangeEmemy>().myenemy.takeDamge(companionProperty.atk);
                             }
                         }
                         coneRotation *= Quaternion.AngleAxis(10, Vector3.forward); // Rotate the direction for the next ray.
@@ -120,9 +129,19 @@ public class Companion : MonoBehaviour
             {
                 if(nearestEnemy != null)
                 {
+                    Debug.Log("attack Enemy");
                     RotateAttackAnimation(nearestEnemy);
-                    
-                    nearestEnemy.AddComponent<Enemy>().takeDamge(companionProperty.atk);
+
+                    meleeEnemy mEnemy;
+                    rangeEmemy rEnemy;
+                    if (nearestEnemy.TryGetComponent(out mEnemy))
+                    {
+                        nearestEnemy.GetComponent<meleeEnemy>().myenemy.takeDamge(companionProperty.atk);
+                    }
+                    if (nearestEnemy.TryGetComponent(out rEnemy))
+                    {
+                        nearestEnemy.GetComponent<rangeEmemy>().myenemy.takeDamge(companionProperty.atk);
+                    }
 
                     normalAttackCount += 1;
                 }
@@ -130,7 +149,7 @@ public class Companion : MonoBehaviour
             }
             
         }
-        if(normalAttackCount >= normalPerSkill && Time.time > nextAttack && entity.Length>0 && lowTier)
+        if(normalAttackCount >= normalPerSkill && Time.time > nextAttack && entity.Length>0 && !lowTier)
         {
             if(nearestEnemy != null) 
             {

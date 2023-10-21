@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Rendering;
 
-public class DayCount : MonoBehaviour
+public class DayCount : Singleton<DayCount>
 {
     public TextMeshProUGUI timeDisplay; // Display Time
     public TextMeshProUGUI dayDisplay; // Display Day

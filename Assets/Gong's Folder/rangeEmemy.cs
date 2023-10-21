@@ -20,9 +20,10 @@ public class rangeEmemy : MonoBehaviour
     void Update()
     {
         myenemy.FixedUpdate();
-        if (enemyHeathPoint < 0)
+        if (myenemy.enemyHeathPoint <= 0)
         {
             Destroy(gameObject);
+            Player.Instance.Coin += 1;
         }
 
     }

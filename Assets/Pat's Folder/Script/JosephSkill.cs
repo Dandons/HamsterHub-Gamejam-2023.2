@@ -21,7 +21,16 @@ public class JosephSkill : Skill
             RaycastHit2D[] hit = Physics2D.RaycastAll(transform.position, rotatedDirection, castDistance);
             for (int j = 0; j < hit.Length; j++)
             {
-                hit[j].collider.gameObject.GetComponent<Enemy>().takeDamge(damageOut);
+                meleeEnemy mEnemy;
+                rangeEmemy rEnemy;
+                if (hit[j].collider.TryGetComponent(out mEnemy))
+                {
+                    hit[j].collider.GetComponent<meleeEnemy>().myenemy.takeDamge(damageOut);
+                }
+                if (hit[j].collider.TryGetComponent(out rEnemy))
+                {
+                    hit[j].collider.GetComponent<rangeEmemy>().myenemy.takeDamge(damageOut);
+                }
             }
             coneRotation *= Quaternion.AngleAxis(10, Vector3.forward); // Rotate the direction for the next ray.
         }

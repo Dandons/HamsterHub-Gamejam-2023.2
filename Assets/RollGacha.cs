@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class RollGacha : MonoBehaviour
 {
+    private float xSpawnPoint = 43;
     public GameObject resultInterface;
     public GameObject[] companionGacha;
     private int[] FilterByRarity(CompanionProperty.Rarity rarity)
@@ -53,7 +54,9 @@ public class RollGacha : MonoBehaviour
         if(Player.Instance.Coin - 100 >= 0)
         {
             Player.Instance.Coin -= 100;
-            GameObject companion =  Instantiate(RandomCompanion());
+            Vector2 spawnPoint = new Vector2(xSpawnPoint, 25);
+            GameObject companion =  Instantiate(RandomCompanion(),spawnPoint,Quaternion.identity);
+            xSpawnPoint += 3;
             resultInterface.transform.GetChild(0).GetComponent<Image>().sprite = companion.GetComponent<SpriteRenderer>().sprite;
             resultInterface.transform.GetChild(1).GetComponent<TMP_Text>().text = companion.GetComponent<Companion>().name;
             StartCoroutine(ShowResult());

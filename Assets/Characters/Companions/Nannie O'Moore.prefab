@@ -108,7 +108,7 @@ MonoBehaviour:
   baseHpRegen: 0.7
   baseMpRegen: 0.1
   normalPerSkill: 99
-  atkRange: 5
+  atkRange: 4
   cdPerAttack: 0.7
   skillLv: 0
   lowTier: 1
